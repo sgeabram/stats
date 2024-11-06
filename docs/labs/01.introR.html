@@ -207,7 +207,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#summarizing-data" id="toc-summarizing-data" class="nav-link" data-scroll-target="#summarizing-data"><span class="header-section-number">1.4.1</span> Summarizing Data</a></li>
   <li><a href="#understanding-the-structure-of-the-frs-datafile" id="toc-understanding-the-structure-of-the-frs-datafile" class="nav-link" data-scroll-target="#understanding-the-structure-of-the-frs-datafile"><span class="header-section-number">1.4.2</span> Understanding the Structure of the FRS Datafile</a></li>
   <li><a href="#explore-the-distribution-of-your-outcome-variable" id="toc-explore-the-distribution-of-your-outcome-variable" class="nav-link" data-scroll-target="#explore-the-distribution-of-your-outcome-variable"><span class="header-section-number">1.4.3</span> Explore the Distribution of Your Outcome Variable</a></li>
-  <li><a href="#explore-correlations" id="toc-explore-correlations" class="nav-link" data-scroll-target="#explore-correlations"><span class="header-section-number">1.4.4</span> Explore Correlations</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/GDSL-UL/stats/edit/main/labs/01.introR.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -1364,14 +1363,6 @@ $ survey_weight    &lt;int&gt; 1870, 1870, 1870, 1870, 1870, 1083, 1571, 1571, 1
 <li>Place the income variable in the columns.</li>
 <li>Add multiple variables in the rows to create simultaneous cross-tabulations.</li>
 </ul>
-</section>
-<section id="explore-correlations" class="level3" data-number="1.4.4">
-<h3 data-number="1.4.4" class="anchored" data-anchor-id="explore-correlations"><span class="header-section-number">1.4.4</span> Explore Correlations</h3>
-<p>Finally, investigate correlations between income and other variables of interest to explain variation.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation between income and other variables (e.g., age, education level)</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cor(frs_independent$income_gross, frs_independent$education_level, use = "complete.obs")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
 </section>

@@ -711,11 +711,3 @@ table(frs_independent$income_category, frs_independent$region)
 -   Place the income variable in the columns.
 -   Add multiple variables in the rows to create simultaneous cross-tabulations.
 
-### Explore Correlations
-
-Finally, investigate correlations between income and other variables of interest to explain variation.
-
-```{r, warning=FALSE, message=FALSE}
-# Correlation between income and other variables (e.g., age, education level)
-# cor(frs_independent$income_gross, frs_independent$education_level, use = "complete.obs")
-```

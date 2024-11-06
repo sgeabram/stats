@@ -215,10 +215,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives"><span class="header-section-number">2.0.1</span> Objectives</a></li>
-  <li><a href="#load-required-libraries-and-set-the-working-environment" id="toc-load-required-libraries-and-set-the-working-environment" class="nav-link" data-scroll-target="#load-required-libraries-and-set-the-working-environment"><span class="header-section-number">2.0.2</span> Load Required Libraries and Set the Working Environment</a></li>
-  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="header-section-number">2.0.3</span> Load Data</a></li>
-  <li><a href="#part-a-descriptive-statistics-data-overview" id="toc-part-a-descriptive-statistics-data-overview" class="nav-link" data-scroll-target="#part-a-descriptive-statistics-data-overview"><span class="header-section-number">2.1</span> Part A: Descriptive Statistics: Data Overview</a></li>
+  <li><a href="#part-a-descriptive-statistics-data-overview" id="toc-part-a-descriptive-statistics-data-overview" class="nav-link active" data-scroll-target="#part-a-descriptive-statistics-data-overview"><span class="header-section-number">2.1</span> Part A: Descriptive Statistics: Data Overview</a></li>
   <li><a href="#part-b-implementing-the-linear-regression-model" id="toc-part-b-implementing-the-linear-regression-model" class="nav-link" data-scroll-target="#part-b-implementing-the-linear-regression-model"><span class="header-section-number">2.2</span> Part B: Implementing the Linear Regression Model</a>
   <ul class="collapse">
   <li><a href="#model-fit" id="toc-model-fit" class="nav-link" data-scroll-target="#model-fit"><span class="header-section-number">2.2.1</span> Model fit</a></li>
@@ -276,15 +273,12 @@ window.Quarto = {
 </li>
 <li>making predictions based on the built regression model.</li>
 </ul>
-<section id="objectives" class="level3" data-number="2.0.1">
-<h3 data-number="2.0.1" class="anchored" data-anchor-id="objectives"><span class="header-section-number">2.0.1</span> Objectives</h3>
+<p><em>Objectives</em></p>
 <ul>
 <li>Understand how to estimate and interpret a multiple linear regression model.</li>
 <li>Use regression to evaluate the impact of socio-demographic variables on health at the local level.</li>
 </ul>
-</section>
-<section id="load-required-libraries-and-set-the-working-environment" class="level3" data-number="2.0.2">
-<h3 data-number="2.0.2" class="anchored" data-anchor-id="load-required-libraries-and-set-the-working-environment"><span class="header-section-number">2.0.2</span> Load Required Libraries and Set the Working Environment</h3>
+<p><em>Load Required Libraries</em></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -301,14 +295,11 @@ window.Quarto = {
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="load-data" class="level3" data-number="2.0.3">
-<h3 data-number="2.0.3" class="anchored" data-anchor-id="load-data"><span class="header-section-number">2.0.3</span> Load Data</h3>
+<p><em>Load Data</em></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load dataset</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/UKLocalAuthorityDistrictPercentages.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
 <section id="part-a-descriptive-statistics-data-overview" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="part-a-descriptive-statistics-data-overview"><span class="header-section-number">2.1</span> Part A: Descriptive Statistics: Data Overview</h2>
 <p>To get a sense of our data, we calculate descriptive statistics for each variable. Using the district-level census dataset (<em>UKLocalAuthorityDistrictPercentages.csv</em>) last week (you can find it on Canvas, in the Dataset section), first get some descriptive statistics for variables to be included in our regression model.</p>
