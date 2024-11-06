@@ -1,0 +1,137 @@
+## Graphing Data
+
+There are three major “systems” of making graphs in R. The basic plotting commands in R are quite effective but the commands do not have a way of being combined in easy ways. Lattice graphics (which the `mosaic` package uses) makes it possible to create some quite complicated graphs but it is very difficult to do make non-standard graphs. The last package, `ggplot2` tries to not anticipate what the user wants to do, but rather provide the mechanisms for pulling together different graphical concepts and the user gets to decide which elements to combine. 
+
+To make the most of `ggplot2` it is important to wrap your mind around “The Grammar of Graphics”. Briefly, the act of building a graph can be broken down into three steps. 
+
+1. Define what data we are using. 
+
+2. What is the major relationship we wish to examine? 
+
+3. In what way should we present that relationship? These relationships can be presented in multiple ways, and the process of creating a good graph relies on building layers upon layers of information. For example, we might start with printing the raw data and then overlay a regression line over the top. 
+
+Next, it should be noted that `ggplot2` is designed to act on data frames. It is actually hard to just draw three data points and for simple graphs it might be easier to use the base graphing system in R. However for any real data analysis project, the data will already be in a data frame and this is not an annoyance.
+
+One way that `ggplot2` makes it easy to form very complicated graphs is that it provides a large number of basic building blocks that, when stacked upon each other, can produce extremely complicated graphs. A full list is available at [http://docs.ggplot2.org/current/](http://docs.ggplot2.org/current/) but the following list gives some idea of different building blocks. These different geometries are different ways to display the relationship between variables and can be combined in many interesting ways.
+
+ Geom	             |    Description	                                    |   Required Aesthetics
+-------------------|----------------------------------------------------|-----------------------
+`geom_histogram`	 |  A histogram                                       |	`x`
+`geom_bar`         |	A barplot                                         |	`x`
+`geom_density`     |  A density plot of data. (smoothed histogram)      | `x`
+`geom_boxplot`     | 	Boxplots                                          | `x, y`
+`geom_line`	       |  Draw a line (after sorting x-values)	            | `x, y`
+`geom_path`	       |  Draw a line (without sorting x-values)	          | `x, y`
+`geom_point`	     |  Draw points (for a scatterplot)	                  | `x, y`
+`geom_smooth`	     |  Add a ribbon that summarizes a scatterplot	      | `x, y`
+`geom_ribbon`	     |  Enclose a region, and color the interior          |	`ymin, ymax`
+`geom_errorbar`    |	Error bars	                                      | `ymin, ymax`
+`geom_text`	       |  Add text to a graph	                              | `x, y, label`
+`geom_label`	     |  Add text to a graph	                              | `x, y, label`
+`geom_tile`        |  Create Heat map                                   | `x, y, fill`
+
+A graph can be built up layer by layer, where:
+
+* Each layer corresponds to a `geom`, each of which requires a dataset and a mapping between an aesthetic and a column of the data set.
+    * If you don't specify either, then the layer inherits everything defined in the `ggplot()` command.
+    * You can have different datasets for each layer!
+
+* Layers can be added with a `+`, or you can define two plots and add them together (second one over-writes anything that conflicts).
+
+
+### Bar Charts
+
+Bar charts and histograms are how we think about displaying informtion about a single covariate.  That is to say, we are not trying to make a graph of the relationship between $x$ and $y$, but rather understanding what values of $x$ are present and how frequently they show up.
+
+For displaying a categorical variable on the x-axis, a bar chart is a good option. Here we consider a data set that gives the fuel efficiency of different classes of vehicles in two different years. This is a subset of data that the EPA makes available on [http://fueleconomy.gov](http://fueleconomy.gov). It contains only model which had a new release every year between 1999 and 2008 and therefore represents the most popular cars sold in the US. It includes information for each model for years 1999 and 2008. The dataset is included in the `ggplot2` package as `mpg`.
+
+```{r}
+data(mpg, package='ggplot2')  # load the dataset
+str(mpg)                      # print out what columns are present
+```
+
+First we could summarize the data by how many models there are in the different classes.
+```{r, fig.height=3, warning=FALSE, message=FALSE}
+library(ggplot2)  # load the ggplot2 package!
+
+ggplot(data=mpg, aes(x=class)) +
+  geom_bar()
+```
+
+1. The data set we wish to use is specified using `data=mpg`.  This is the first argument defined in the function, so you could skip the `data=` part if the input data.frame is the first argument.
+
+2. The column in the data that we wish to investigate is defined in the `aes(x=class)` part. This means the x-axis will be the car's class, which is indicated by the column named `class`.
+
+3. The way we want to display this information is using a bar chart.
+
+By default, the `geom_bar()` just counts the number of cases and displays how many observations were in each factor level. If I have already summarized the data and I just want to make the barchart some height, I would instead use `geom_col` instead.
+
+### Histograms
+Histograms also focus on a single variable and give how frequently particular ranges of the data occur.
+
+```{r, fig.height=3}
+ggplot(mpg, aes(x=hwy)) + 
+  geom_histogram()
+```
+
+Just as `geom_bar` by default calculated the number of observations in each level of my factor of interest, `geom_histogram` breaks up the x-axis into distinct bins (by default, 30 bins), and then counts how many observations fall into each bin, and displys the number as a bar. To change the number of bins, we could either tell it the number of bins (e.g. `bins=20`) or the width of each bin (e.g. `binwidth=4`).
+
+```{r, fig.height=3}
+ggplot(mpg, aes(x=hwy)) + 
+  geom_histogram(bins=8)       # 8 bins
+```
+
+
+### Scatterplots
+
+There is a famous data set that contains 150 observations from three species of iris. For each observation the length and width of the flowers petals and sepals were measured. This dataset is available in R as `iris` and is always loaded.  We'll make a very simple scatterplot using the `iris` dataset that will make a scatterplot of `Sepal.Length` versus `Petal.Length`, which are two columns in the data set.
+
+```{r}
+data(iris)  # load the iris dataset that comes with R
+str(iris)   # what columns do we have to play with...
+```
+
+
+```{r, fig.height=3, warning=FALSE, message=FALSE}
+ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length) ) +  
+	geom_point(  )
+```
+
+1. The data set we wish to use is specified using `data=iris`.
+
+2. The relationship we want to explore is `x=Sepal.Length` and `y=Petal.Length`. This means the x-axis will be the Sepal Length and the y-axis will be the Petal Length.
+
+3. The way we want to display this relationship is through graphing 1 point for every observation.
+
+We can define other attributes that might reflect other aspects of the data. For example, we might want for the of the data point to change dynamically based on the species of iris. 
+
+```{r, fig.height=3}
+ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length, color=Species) ) +  
+	geom_point(  )
+```
+
+The `aes()` command inside the previous section of code is quite mysterious. The way to think about the `aes()` is that it gives you a way to define relationships that are data dependent. In the previous graph, the x-value and y-value for each point was defined dynamically by the data, as was the color. If we just wanted all the data points to be colored blue and larger, then the following code would do that
+
+```{r}
+ggplot( data=iris, aes(x=Sepal.Length, y=Petal.Length) ) +  
+	geom_point( color='blue', size=4 )
+```
+
+
+The important part isn't that color and size were defined in the `geom_point()` but that they were defined outside of an `aes()` function! 
+
+1. Anything set inside an `aes()` command will be of the form `attribute=Column_Name` and will change based on the data.
+
+2. Anything set outside an `aes()` command will be in the form `attribute=value` and will be fixed. 
+
+
+
+### Box Plots 
+
+Boxplots are a common way to show a categorical variable on the x-axis and continuous on the y-axis. 
+```{r}
+ggplot(iris, aes(x=Species, y=Petal.Length)) +
+  geom_boxplot()
+```
+
+The boxes show the $25^{th}$, $50^{th}$, and $75^{th}$ percentile and the lines coming off the box extend to the smallest and largest non-outlier observation.  

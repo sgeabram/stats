@@ -1,0 +1,193 @@
+---
+title: "Lab: Single and Multiple Linear Regression"
+author: "Gabriele Filomena"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+In this analysis, we investigate how various local factors impact residents' health, focusing on long-term illness. We'll use a multiple linear regression model in R to examine these relationships, as standard correlation analysis is limited when assessing multiple predictors simultaneously.
+
+A key goal of data analysis is to explore the potential factors of health at the local district level. So far, we have used cross-tabulations and various bivariate correlation analysis methods to explore the relationships between variables. One key limitation of standard correlation analysis is that it remains hard to look at the associations of an outcome/dependent variable to multiple independent/predictor variables at the same time. Regression analysis provides a very useful and flexible methodological framework for such a purpose. 
+
+In this week’s practical we are going to apply regression analysis in an attempt to answer the research question:
+
+**RESEARCH QUESTION 1: How do local factors affect residents’ health?**
+
+The practical is split into three parts:
+
+ - Implementing a linear regression using SPSS;  
+ - Interpreting regression model estimation results;  
+ - making predictions based on the built regression model.
+
+### Objectives
+
+ - Understand how to estimate and interpret a multiple linear regression model. 
+ - Use regression to evaluate the impact of socio-demographic variables on health at the local level.
+
+
+### Load Required Libraries and Set the Working Environment
+
+```{r}
+
+library(tidyverse)
+library(broom)
+```
+
+### Load Data
+
+```{r}
+# Load dataset
+data <- read.csv("../data/UKLocalAuthorityDistrictPercentages.csv")
+```
+
+## Part A: Descriptive Statistics: Data Overview
+To get a sense of our data, we calculate descriptive statistics for each variable. Using the district-level census dataset (*UKLocalAuthorityDistrictPercentages.csv*) last week (you can find it on Canvas, in the Dataset section), first get some descriptive statistics for variables to be included in our regression model.
+
+The dependent variable is:
+
+ - % of persons with long term ill health (*pct_Long_term_ill*).
+
+**Independent variables include :**
+
+ - The % of persons with no qualifications (*pct_No_qualifications*).
+ - The % of male population (*pct_Males*).
+ - The % of persons in a Higher Managerial or Professional occupation (*pct_Higher_manager_prof*).
+
+We’re using a district-level census dataset (`UK Local Authority District percentages.csv`) that includes:
+
+ **Dependent (or Outcome) Variable**: 
+ - % of persons with long-term ill health (`pct_Long_term_ill`)
+ 
+ **Independent (or Predictor) Variables**:
+  - % of persons with no qualifications (`pct_No_qualifications`)
+  - % of male population (`pct_Males`)
+  - % of persons in a higher managerial/professional occupation (`pct_Higher_manager_prof`)
+ 
+These statistics help identify general trends and distributions in the data.
+
+```{r}
+# Summary statistics
+summary_data <- data %>%
+  select(pct_Long_term_ill, pct_No_qualifications, pct_Males, pct_Higher_manager_prof) %>%
+  summarise_all(list(mean = mean, sd = sd))
+summary_data
+```
+**Q1**. Complete the table by specifying the type (continuous or categorical) and reporting the mean and standard deviation for each variable.
+
+
+| Variable Name            | Type (Continuous or Categorical) | Mean | Standard Deviation |
+|--------------------------|-----------------------------------|------|---------------------|
+| pct_Long_term_ill        |                                   |      |                     |
+| pct_No_qualifications    |                                   |      |                     |
+| pct_Males                |                                   |      |                     |
+| pct_Higher_manager_prof  |                                   |      |                     |
+
+## Part B: Implementing the Linear Regression Model
+Regression allows us to examine the relationship between long-term illness rates and multiple predictors.
+
+Regression models are _the_ standard method for constructing predictive and explanatory models. They tell us how changes in one variable (the target variable or independent variable, yy) are _associated with_ changes in explanatory variables, or dependent variables, $x_1, x_2, x_3$, etc. 
+
+Classic linear regression is referred to *Ordinary least squares* (OLS) regression because they estimate the relationship between one or more independent variables and a dependent variable $y$ using a hyperplane (i.e. a multi-dimensional line) that minimises the sum of the squared difference between the observed values of y and the values predicted by the model (denoted as $\hat{y}$, $y$-hat)
+
+### Model fit
+
+```{r}
+# Linear regression model
+model <- lm(pct_Long_term_ill ~ pct_No_qualifications + pct_Males + pct_Higher_manager_prof, data = data)
+summary(model)
+```
+
+#### Code explanation
+
+**`lm()` Function**:
+    
+ - `lm()` stands for "linear model" and is used to fit a linear  regression model in R. 
+ - The formula syntax `pct_Long_term_ill ~ pct_No_qualifications + pct_Males + pct_Higher_manager_prof` specifies a relationship between:  
+	 - **Dependent Variable**:  `pct_Long_term_ill` (the percentage of people with long-term illness).     
+	 -  **Independent Variables**:
+	   `pct_No_qualifications`,   `pct_Males`, and
+	   `pct_Higher_manager_prof`.  The model is trained on the `data`
+	   dataset.
+    
+ **Storing the Model**: The `model <-` syntax stores the fitted model in an object called `model`.
+
+`summary(model)` provides a detailed output of the model's results, including:
+
+ - **Coefficients**: Estimates of the regression slopes (i.e., how each predictor affects `pct_Long_term_ill`).  
+ - **Standard Errors**: The variability of each coefficient estimate.
+ - **t-values** and **p-values**: Indicate the statistical significance of each predictor.  
+ - **R-squared** and **Adjusted R-squared**: Show how well the independent variables explain the variance in the dependent variable.
+ -  **F-statistic**: Tests the overall significance of the model.
+
+
+#### Regression Coefficients
+```{r}
+# Regression coefficients
+coefficients <- tidy(model)
+coefficients
+```
+
+We focus on key output metrics:
+- **Adjusted R-squared**: Indicates how well the model explains the variance in the outcome variable.
+ - **Coefficients**: Estimate the average change in long-term illness rates for a one-unit increase in each predictor, assuming other variables are held constant.
+
+### Interpreting the Results
+
+The ***t tests*** of regression coefficients are used to judge the statistical inferences on regression coefficients, i.e. associations between independent variables and the outcome variable. For a t-statistic of a predictor variable there is a corresponding ***p-value***. It is much easier to judge the statistical inference on regression coefficient by comparing the p value to the conventional level of significance of **0.05**:
+
+ - If the p-value of a coefficient is smaller than 0.05, the coefficient is statistically significant. In this case, you can say that the relationship between this independent variable and the outcome variable is *statistically* significant. 
+ - If the p-value of a coefficient is larger than 0.05, the coefficient is not statistically significant. In this case, you can say or conclude that there is no evidence of an association or relationship between this independent variable and the outcome variable.
+
+```{r}
+# Format regression results for reporting
+results_table <- coefficients %>%
+  select(term, estimate, statistic, p.value)
+results_table
+```
+
+**Q2**. Complete the table above by filling in the coefficients, t-values, p-values, and indicating if each variable is statistically significant.
+
+| Variable Name            | Coefficients | t-values | p-values | Significant? |
+|--------------------------|--------------|----------|----------|--------------|
+| pct_No_qualifications    |              |          |          |              |
+| pct_Males                |              |          |          |              |
+| pct_Higher_manager_prof  |              |          |          |              |
+
+
+### Interpretation of regression coefficients or covariate effects
+
+#### Interpretation of the Intercept or Constant term
+From the lecture notes, you know that the Intercept or Constant represents the estimated average value of the outcome variable when the values of all independent variables are equal to zero.
+
+**Q3**. When values of *pct_Males*, *pct_No_qualifications* and *pct_Higher_manager_prof* are all $zero$, what is the % of persons with long term illness? Is the intercept term meaningful? Think about whether there are districts with zero percentages of persons with no qualification. Are there any districts with zero percentages of persons with no qualification in your data set?
+
+#### Interpretation of regression slopes
+
+The regression coefficient of an independent variable is the estimated average change in $Y$ for a one unit change in $X$, when all other explanatory variables are held constant. There are two key points worth mentioning:
+
+- **The unit of $X$ and $Y$**: you need to know what the units are of the independent and dependent variables. For instance, one unit could be one year if you have an age variable, or a one percentage point if the variable is measured in percentages (all the variables in this week’s practical).
+- **All the other explanatory variables are held constant**. It means that the coefficient of an explanatory variable $x_1$ (e.g. $b_1$) should be interpreted as: a one unit change in$x_1$ is associated with b1 units change in $Y$, keeping other values of explanatory variables (e.g. $x_2$, $x_3$) constant – for instance, $x_2$= 0.1 or $x_3$= 0.4.
+
+**Q4**. Interpret the regression coefficients of *pct_Males*, *pct_No_qualifications* and *pct_Higher_manager_prof*. Do they make sense?
+
+### Identify factors of % long-term illness
+
+
+Now combine the above two sections and identify factors affecting the percentage of long-term illness. Fill in each row for the direction (positive or negative) and significance level of each variable.
+
+| Variable Name            | Positive or Negative | Statistical Significance |
+|--------------------------|----------------------|--------------------------|
+| pct_No_qualifications    |                      |                          |
+| pct_Higher_manager_prof  |                      |                          |
+| pct_Males                |                      |                          |
+
+**Q5**. Think about the potential conclusions that can be drawn from the above analyses. Try to answer the research question of this practical: How do local factors affect residents’ health?
+
+## Part C: Practice and Extension
+
+**If you haven't understood something, if you have doubts, even if they seem silly, ask.**
+
+ 1. Finish working through the practical.
+ 2.  Revise the material. 
+ 3. Extension activities (optional): Think about other potential factors of long-term illness and test your ideas with new linear regression models.

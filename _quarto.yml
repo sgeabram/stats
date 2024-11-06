@@ -1,0 +1,42 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Exploring the Social World - Quantitative Block: Statistics"
+  author: "Gabriele Filomena and Zi Ye"
+  date: today
+
+  page-footer:
+    left: |
+     Exploring the Social World - Quantitative Block: Statistics by Gabriele Filomena and Zi Ye.
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
+  search: true
+  site-url:  https://gdsl-ul.github.io/stats
+  repo-url: https://github.com/GDSL-UL/stats
+  repo-actions: [edit]
+  sidebar:
+    style: docked
+    background: light
+  downloads: [pdf]
+  chapters:
+    - index.qmd
+    - general/overview.qmd
+    - general/assessment.qmd
+    - labs/01.introR.qmd
+    - labs/02.MultipleLinear.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: zephyr
+    css: styles.css
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
+
+
