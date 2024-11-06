@@ -61,6 +61,10 @@ tinytex::install_tinytex()
    
 3.  **Open the Quarto File**: Open your `.qmd` file in RStudio.
 4.  **Set Output Format**: In the YAML header at the top of your Quarto file, specify `pdf` under `format`:
+
+```{r class.source = "fold-show", echo = F}
+knitr::include_graphics("../img/quartoHeader.png")
+```
     
 ```
     title: "Your Document Title"

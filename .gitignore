@@ -16,7 +16,10 @@
 /*.tar.gz
 
 # PPT
-/*.pptx
+lectures/*.pptx
+
+# ipynb
+general/*.ipynb
 
 # Output files from R CMD check
 /*.Rcheck/

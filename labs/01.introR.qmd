@@ -1,6 +1,4 @@
 
-
-
 ---
 title: "Lab: Introduction to R for Statistics"
 author: "Gabriele Filomena"
@@ -8,9 +6,25 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
+*The following material has been readapted from*:
+
+- https://dereksonderegger.github.io/570L/1-introduction.html by Derek L. Sonderegger; 
+- https://pietrostefani.github.io/gds/environR.html by Elisabetta Pietrostefani and Carmen Cabrera-Arnau.*
+
+For the lab sessions and your assignment, you will need the following software:
+
+-   R-4.2.2
+-   RStudio 2022.12.0-353
+-   The list of libraries in the next section
+
+To install and update:
+
+-   R, download the appropriate version from  [The Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/)
+-   RStudio, download the appropriate version from  [Posit](https://posit.co/download/rstudio-desktop/)
+
 ## R?
 
-R is a open-source program that is commonly used in Statistics. It runs on almost every platform and is completely free and is available at [www.r-project.org](www.r-project.org). Most of the cutting-edge statistical research is first available on R. 
+R is an open-source program that is commonly used in Statistics. It runs on almost every platform and is completely free and is available at [www.r-project.org](www.r-project.org). Most of the cutting-edge statistical research is first available on R. 
 
 R is a script based language, so there is no point and click interface. While the initial learning curve will be steeper, understanding how to write scripts will be valuable because it leaves a clear description of what steps you performed in your data analysis. Typically you will want to write a script in a separate file and then run individual lines. This saves you from having to retype a bunch of commands and speeds up the debugging process.
 
@@ -37,7 +51,7 @@ knitr::include_graphics("../img/environ_R_1.png")
 - on Windows by clicking RStudio\>Tools\>Global Options\>Appearance or Pane Layout
 - on Mac OS by clicking RStudio\>Preferences\>Appearance or Pane Layout.
 
-You will also have a standard white background; but you can chose specific [themes](https://quarto.org/docs/output-formats/html-themes.html).
+You will also have a standard white background; but you can choose specific [themes](https://quarto.org/docs/output-formats/html-themes.html).
 
 **Source Panel (Top-Left)**
 
@@ -53,7 +67,7 @@ This is where you write, edit, and view scripts, R Markdown/Quarto documents, or
 -   Executing the Code: Type and run R commands directly.
 -   Viewing outputs, warnings, and errors for immediate feedback.
 -   Browsing and reusing past commands (History Tab).
--   Toggling between the R Console, and the *Terminal* (only for shell commands, do not use it unless instructed to do so).
+-   Toggling between the R Console, and the Terminal (yuo don't really need the latter).
 
 **Environment Panel (Top-Right)**
 
@@ -110,12 +124,11 @@ getwd()
 ```
 
 File paths in R work like this:
+
 | File Path              | Description                                                                                              |
 |------------------------|----------------------------------------------------------------------------------------------------------|
 | `MyFile.csv`           | Look in the working directory for `MyFile.csv`.                                                          |
 | `MyFolder/MyFile.csv`  | In the working directory, there is a subdirectory called `MyFolder` and inside that folder is `MyFile.csv`. |
-
-
 
 
 You do not need to set your working directory if you are using an R-markdown or Quarto document and you have it saved in the right location. The pathway will start from where your document is saved.
@@ -194,7 +207,7 @@ var * another_var
 ```
 As your analysis gets more complicated, you'll want to save the results to a variable so that you can access the results later. *If you don't assign the result to a variable, you have no way of accessing the result.* 
 
-### Working wiht Scripts
+### Working with Scripts
 
 **R Scripts (.R files)**
 
@@ -298,7 +311,7 @@ Grades <- data.frame(
 Grades          # show the output in the console. This works when knitting
 ```
 
-To execute just one chunk of code press the green arrow top-right of the chunk.
+**To execute just one chunk of code press the green arrow top-right of the chunk:**
 
 ```{r class.source = "fold-show", echo = F}
 knitr::include_graphics("../img/runChunk.png")
@@ -372,7 +385,7 @@ The primary function that we'll use to read data from a file and into R is the f
 | `colClasses`       | `NULL`        | Specifies the data type for each column to speed up reading for large files, e.g., `c("character", "numeric")`.    |
 | `encoding`         | `"unknown"`   | Sets the text encoding of the file, which can be useful for files with special or international characters.        |
  
-Most of the time you just need to specify the fil.                                             |
+Most of the time you just need to specify the file.                                             |
 
 <div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
 Task: Let's read in a dataset of terrorist attacks that have taken place in the UK: 
@@ -526,7 +539,7 @@ In the FRS (and Census), a "family" is defined as a couple and any "dependent" c
 
 ### Explore the Distribution of Your Outcome Variable
 
-Before starting your analysis, it is critical to know the type of scale used to measure your outcome variable: is it categorical or scale (continuous)? Here we will start off by exploring a scale (continuous) which can then turn into a categorical variable (e.g. top earners: yes or no). We explore the income distribution in the UK by first looking at the low and high end of the distribution ie. What sorts of people have high (or low) incomes?
+Before starting your analysis, it is critical to know the type of scale used to measure your outcome variable: is it categorical or continuous? Here we will start off by exploring a continuous variable which can then turn into a categorical variable (e.g. top earners: yes or no). We explore the income distribution in the UK by first looking at the low and high end of the distribution ie. What sorts of people have high (or low) incomes?
 
 In the FRS each person’s annual income is recorded, both gross (pre-tax) and net (post-tax). This income includes all income sources, including earnings, profits, investment returns, state benefits, occupational pensions etc. As it is possible to make a loss on some of these activities, it is also possible (although unusual) for someone’s gross or net annual income in a given year to be negative (representing an overall loss).
 
@@ -673,7 +686,7 @@ frs_independent$income_category <- factor(frs_independent$income_category,
 Examine the frequency distribution of the variable you have just created. Both variables should have the same number of missing cases, unless:
 
  - Missing cases in the old variable have been intentionally converted into valid cases in the new variable.
- - You forgot to allocate a newvalue to one of the old variable categories, in which case the new variable will have more missing cases than the old variable.
+ - You forgot to allocate a new value to one of the old variable categories, in which case the new variable will have more missing cases than the old variable.
 
 ```{r, warning=FALSE, message=FALSE}
 # Frequency distribution of income categories

@@ -194,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#using-the-console" id="toc-using-the-console" class="nav-link" data-scroll-target="#using-the-console"><span class="header-section-number">1.2.2</span> Using the console</a></li>
   <li><a href="#r-as-a-simple-calculator" id="toc-r-as-a-simple-calculator" class="nav-link" data-scroll-target="#r-as-a-simple-calculator"><span class="header-section-number">1.2.3</span> R as a simple calculator</a></li>
   <li><a href="#variables-assignment" id="toc-variables-assignment" class="nav-link" data-scroll-target="#variables-assignment"><span class="header-section-number">1.2.4</span> Variables Assignment</a></li>
-  <li><a href="#working-wiht-scripts" id="toc-working-wiht-scripts" class="nav-link" data-scroll-target="#working-wiht-scripts"><span class="header-section-number">1.2.5</span> Working wiht Scripts</a></li>
+  <li><a href="#working-with-scripts" id="toc-working-with-scripts" class="nav-link" data-scroll-target="#working-with-scripts"><span class="header-section-number">1.2.5</span> Working with Scripts</a></li>
   <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages"><span class="header-section-number">1.2.6</span> R Packages</a></li>
   </ul></li>
   <li><a href="#practice-dataset-and-dataframes" id="toc-practice-dataset-and-dataframes" class="nav-link" data-scroll-target="#practice-dataset-and-dataframes"><span class="header-section-number">1.3</span> Practice: Dataset and Dataframes</a>
@@ -246,9 +246,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><em>The following material has been readapted from</em>:</p>
+<ul>
+<li>https://dereksonderegger.github.io/570L/1-introduction.html by Derek L. Sonderegger;</li>
+<li>https://pietrostefani.github.io/gds/environR.html by Elisabetta Pietrostefani and Carmen Cabrera-Arnau.*</li>
+</ul>
+<p>For the lab sessions and your assignment, you will need the following software:</p>
+<ul>
+<li>R-4.2.2</li>
+<li>RStudio 2022.12.0-353</li>
+<li>The list of libraries in the next section</li>
+</ul>
+<p>To install and update:</p>
+<ul>
+<li>R, download the appropriate version from <a href="https://cran.r-project.org/">The Comprehensive R Archive Network (CRAN)</a></li>
+<li>RStudio, download the appropriate version from <a href="https://posit.co/download/rstudio-desktop/">Posit</a></li>
+</ul>
 <section id="r" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="r"><span class="header-section-number">1.1</span> R?</h2>
-<p>R is a open-source program that is commonly used in Statistics. It runs on almost every platform and is completely free and is available at <a href="www.r-project.org">www.r-project.org</a>. Most of the cutting-edge statistical research is first available on R.</p>
+<p>R is an open-source program that is commonly used in Statistics. It runs on almost every platform and is completely free and is available at <a href="www.r-project.org">www.r-project.org</a>. Most of the cutting-edge statistical research is first available on R.</p>
 <p>R is a script based language, so there is no point and click interface. While the initial learning curve will be steeper, understanding how to write scripts will be valuable because it leaves a clear description of what steps you performed in your data analysis. Typically you will want to write a script in a separate file and then run individual lines. This saves you from having to retype a bunch of commands and speeds up the debugging process.</p>
 </section>
 <section id="rstudio-basics" class="level2" data-number="1.2">
@@ -275,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>on Windows by clicking RStudio&gt;Tools&gt;Global Options&gt;Appearance or Pane Layout</li>
 <li>on Mac OS by clicking RStudio&gt;Preferences&gt;Appearance or Pane Layout.</li>
 </ul>
-<p>You will also have a standard white background; but you can chose specific <a href="https://quarto.org/docs/output-formats/html-themes.html">themes</a>.</p>
+<p>You will also have a standard white background; but you can choose specific <a href="https://quarto.org/docs/output-formats/html-themes.html">themes</a>.</p>
 <p><strong>Source Panel (Top-Left)</strong></p>
 <p>This is where you write, edit, and view scripts, R Markdown/Quarto documents, or R scripts. It allows:</p>
 <ul>
@@ -288,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Executing the Code: Type and run R commands directly.</li>
 <li>Viewing outputs, warnings, and errors for immediate feedback.</li>
 <li>Browsing and reusing past commands (History Tab).</li>
-<li>Toggling between the R Console, and the <em>Terminal</em> (only for shell commands, do not use it unless instructed to do so).</li>
+<li>Toggling between the R Console, and the Terminal (yuo don’t really need the latter).</li>
 </ul>
 <p><strong>Environment Panel (Top-Right)</strong></p>
 <p>This panel helps track variables, functions, and the history of commands used. It contains:</p>
@@ -327,7 +343,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>File paths in R work like this: | File Path | Description | |————————|———————————————————————————————————-| | <code>MyFile.csv</code> | Look in the working directory for <code>MyFile.csv</code>. | | <code>MyFolder/MyFile.csv</code> | In the working directory, there is a subdirectory called <code>MyFolder</code> and inside that folder is <code>MyFile.csv</code>. |</p>
+<p>File paths in R work like this:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 81%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File Path</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>MyFile.csv</code></td>
+<td>Look in the working directory for <code>MyFile.csv</code>.</td>
+</tr>
+<tr class="even">
+<td><code>MyFolder/MyFile.csv</code></td>
+<td>In the working directory, there is a subdirectory called <code>MyFolder</code> and inside that folder is <code>MyFile.csv</code>.</td>
+</tr>
+</tbody>
+</table>
 <p>You do not need to set your working directory if you are using an R-markdown or Quarto document and you have it saved in the right location. The pathway will start from where your document is saved.</p>
 </section>
 <section id="using-the-console" class="level3" data-number="1.2.2">
@@ -430,8 +468,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>As your analysis gets more complicated, you’ll want to save the results to a variable so that you can access the results later. <em>If you don’t assign the result to a variable, you have no way of accessing the result.</em></p>
 </section>
-<section id="working-wiht-scripts" class="level3" data-number="1.2.5">
-<h3 data-number="1.2.5" class="anchored" data-anchor-id="working-wiht-scripts"><span class="header-section-number">1.2.5</span> Working wiht Scripts</h3>
+<section id="working-with-scripts" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="working-with-scripts"><span class="header-section-number">1.2.5</span> Working with Scripts</h3>
 <p><strong>R Scripts (.R files)</strong></p>
 <p>Traditional script files look like this:</p>
 <div class="cell">
@@ -544,7 +582,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 Valerie     85     81</code></pre>
 </div>
 </div>
-<p>To execute just one chunk of code press the green arrow top-right of the chunk.</p>
+<p><strong>To execute just one chunk of code press the green arrow top-right of the chunk:</strong></p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -681,7 +719,7 @@ Carr, Jasmine, 81, 96, 97</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Most of the time you just need to specify the fil. |</p>
+<p>Most of the time you just need to specify the file. |</p>
 <div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
 <p>Task: Let’s read in a dataset of terrorist attacks that have taken place in the UK:</p>
 </div>
@@ -760,39 +798,39 @@ Carr, Jasmine, 81, 96, 97</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(attacks, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   nrKilled nrWound success year        country                         attack
-1         0       0       1 2005 United Kingdom              Bombing/Explosion
-2         0       0       1 2005 United Kingdom              Bombing/Explosion
-3         0       0       1 2005 United Kingdom              Bombing/Explosion
-4         0       0       1 2005 United Kingdom              Bombing/Explosion
-5         0       1       0 1982 United Kingdom                  Assassination
-6         0       0       1 2014 United Kingdom Facility/Infrastructure Attack
-7         0       0       1 2014 United Kingdom Facility/Infrastructure Attack
-8         0       0       1 2014 United Kingdom Facility/Infrastructure Attack
-9         0       0       1 2014 United Kingdom Facility/Infrastructure Attack
-10        0       0       1 2014 United Kingdom Facility/Infrastructure Attack
-                        target                    weapon
-1               Transportation Explosives/Bombs/Dynamite
-2               Transportation Explosives/Bombs/Dynamite
-3               Transportation Explosives/Bombs/Dynamite
-4               Transportation Explosives/Bombs/Dynamite
-5      Government (Diplomatic)                  Firearms
-6                     Business                Incendiary
-7                     Business                Incendiary
-8                     Business                Incendiary
-9  Private Citizens &amp; Property                Incendiary
-10                      Police                Incendiary
-                          group
-1    Abu Hafs al-Masri Brigades
-2    Abu Hafs al-Masri Brigades
-3    Abu Hafs al-Masri Brigades
-4    Abu Hafs al-Masri Brigades
-5  Abu Nidal Organization (ANO)
-6                    Anarchists
-7                    Anarchists
-8                    Anarchists
-9                    Anarchists
-10                   Anarchists</code></pre>
+<pre><code>   nrKilled nrWound year        country                        group
+1         0       0 2005 United Kingdom   Abu Hafs al-Masri Brigades
+2         0       0 2005 United Kingdom   Abu Hafs al-Masri Brigades
+3         0       0 2005 United Kingdom   Abu Hafs al-Masri Brigades
+4         0       0 2005 United Kingdom   Abu Hafs al-Masri Brigades
+5         0       1 1982 United Kingdom Abu Nidal Organization (ANO)
+6         0       0 2014 United Kingdom                   Anarchists
+7         0       0 2014 United Kingdom                   Anarchists
+8         0       0 2014 United Kingdom                   Anarchists
+9         0       0 2014 United Kingdom                   Anarchists
+10        0       0 2014 United Kingdom                   Anarchists
+                           attack                      target
+1               Bombing/Explosion              Transportation
+2               Bombing/Explosion              Transportation
+3               Bombing/Explosion              Transportation
+4               Bombing/Explosion              Transportation
+5                   Assassination     Government (Diplomatic)
+6  Facility/Infrastructure Attack                    Business
+7  Facility/Infrastructure Attack                    Business
+8  Facility/Infrastructure Attack                    Business
+9  Facility/Infrastructure Attack Private Citizens &amp; Property
+10 Facility/Infrastructure Attack                      Police
+                      weapon
+1  Explosives/Bombs/Dynamite
+2  Explosives/Bombs/Dynamite
+3  Explosives/Bombs/Dynamite
+4  Explosives/Bombs/Dynamite
+5                   Firearms
+6                 Incendiary
+7                 Incendiary
+8                 Incendiary
+9                 Incendiary
+10                Incendiary</code></pre>
 </div>
 </div>
 <p>We might want to compare different actors and see the mean and standard deviation of the number of people wound, by each group’s attack, across time. To do this, we are still going to use the <code>summarize</code>, but we will precede that with <code>group_by(group)</code> to tell the subsequent <code>dplyr</code> functions to perform the actions separately for each breed.</p>
@@ -1144,7 +1182,7 @@ $ survey_weight    &lt;int&gt; 1870, 1870, 1870, 1870, 1870, 1083, 1571, 1571, 1
 </section>
 <section id="explore-the-distribution-of-your-outcome-variable" class="level3" data-number="1.4.3">
 <h3 data-number="1.4.3" class="anchored" data-anchor-id="explore-the-distribution-of-your-outcome-variable"><span class="header-section-number">1.4.3</span> Explore the Distribution of Your Outcome Variable</h3>
-<p>Before starting your analysis, it is critical to know the type of scale used to measure your outcome variable: is it categorical or scale (continuous)? Here we will start off by exploring a scale (continuous) which can then turn into a categorical variable (e.g.&nbsp;top earners: yes or no). We explore the income distribution in the UK by first looking at the low and high end of the distribution ie. What sorts of people have high (or low) incomes?</p>
+<p>Before starting your analysis, it is critical to know the type of scale used to measure your outcome variable: is it categorical or continuous? Here we will start off by exploring a continuous variable which can then turn into a categorical variable (e.g.&nbsp;top earners: yes or no). We explore the income distribution in the UK by first looking at the low and high end of the distribution ie. What sorts of people have high (or low) incomes?</p>
 <p>In the FRS each person’s annual income is recorded, both gross (pre-tax) and net (post-tax). This income includes all income sources, including earnings, profits, investment returns, state benefits, occupational pensions etc. As it is possible to make a loss on some of these activities, it is also possible (although unusual) for someone’s gross or net annual income in a given year to be negative (representing an overall loss).</p>
 <div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
 <p><strong>Task</strong>: Load the FRS dataset into your R environment, if it’s not already loaded, and inspect the data.</p>
@@ -1281,7 +1319,7 @@ $ survey_weight    &lt;int&gt; 1870, 1870, 1870, 1870, 1870, 1083, 1571, 1571, 1
 <p>Examine the frequency distribution of the variable you have just created. Both variables should have the same number of missing cases, unless:</p>
 <ul>
 <li>Missing cases in the old variable have been intentionally converted into valid cases in the new variable.</li>
-<li>You forgot to allocate a newvalue to one of the old variable categories, in which case the new variable will have more missing cases than the old variable.</li>
+<li>You forgot to allocate a new value to one of the old variable categories, in which case the new variable will have more missing cases than the old variable.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency distribution of income categories</span></span>
