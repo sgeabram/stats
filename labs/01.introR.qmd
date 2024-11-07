@@ -11,6 +11,9 @@ output: html_document
 - https://dereksonderegger.github.io/570L/1-introduction.html by Derek L. Sonderegger; 
 - https://pietrostefani.github.io/gds/environR.html by Elisabetta Pietrostefani and Carmen Cabrera-Arnau.*
 
+
+The lecture's slides can be found [here](https://github.com/GDSL-UL/stats/blob/main/lectures/lecture07.pdf).
+
 For the lab sessions and your assignment, you will need the following software:
 
 -   R-4.2.2

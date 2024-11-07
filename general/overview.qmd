@@ -5,6 +5,7 @@
 This sub-module aims to provide training and skills on a set of basic quantitative research methods for data collection, analysis, and interpretation. You will learn how to define coherent, relevant research questions, utilise various research quantitative methods, and identify appropriate methodologies to tackle your research questions. **This block serves as the foundation for the dissertation and fieldwork modules.**
 
 **Background**
+
 Data and research are key pillars of the global economy and society today. We need rigorous approaches to collecting and analysing both the statistics that can tell us ‘how much’ and if there are observable relationships between phenomena; and the information gives us a nuanced understanding of cultural contexts and human dynamics. Quantitative skills enable us to explore and measure socio-economic activities and processes at large scales, while qualitative skills enable understanding of social, cultural, and political contexts and diverse lived experiences. Rather than being in opposition, qualitative and quantitative research can complement one another in the investigation of today’s pressing research questions.
 
 To these ends, this block will help you develop your quantitative (statistical) skills, as critical tools. This course will help you understand what quantitative statistical researchers use and develop a set of research techniques that can be used in your field classes and dissertations. 
@@ -27,28 +28,30 @@ Quantitative Block (Weeks 7-12):
  - **Lecture**: 10 am – 10.45 am Fridays
  - **PC Practical sessions**: 11am – 1 pm, following the Lecture
 
-**Week 7**: Central Teaching Lab: PC Teaching Centre BLUE+GREEN+ORANGE ZONES
+**Week 7**: Central Teaching Hub: PC Teaching Centre BLUE+GREEN+ORANGE ZONES
 
 **Week 8 -12**: Central Teaching Hub, PCTC
 
 Lectures will introduce and explain the fundamentals of quantitative methods, with the opportunity to apply the method introduced in the labs later in the week.
 
-The computer practical sessions, will give you the chance to use and apply quantitative methods to real-world data. These are primarily self-directed sessions, but with support on hand if you get stuck. Support and training in R will be provided through these sessions. Weekly sessions will be driven by empirical research questions.
+The computer practical sessions, will give you the chance to use and apply quantitative methods to real-world data. 
+These are primarily self-directed sessions, but with support on hand if you get stuck. Support and training in R will be provided through these sessions. Weekly sessions will be driven by empirical research questions.
+
 
 | Week | Topic                                       | Format                          | Staff |
 |------|---------------------------------------------|---------------------------------|-------|
 | 7    | Introduction & Review                       | Lecture and Computer Lab Practical | GF    |
 | 8    | Single & Multiple Linear Regression         | Lecture and Computer Lab Practical | GF    |
-| 9    | Multiple Linear Regression with Dummy Variables | Lecture and Computer Lab Practical | ZY    |
+| 9    | Multiple Linear Regression with Categorical Variables | Lecture and Computer Lab Practical | ZY    |
 | 10   | Logistic Regression                         | Lecture and Computer Lab Practical | ZY    |
 | 11   | Data Visualisation                          | Lecture and Computer Lab Practical | GF    |
 | 12   | Summary and Assessment Support              | Lecture and Computer Lab Practical | ZY    |
 
 
-
 ## Software and Data
 
 For quantitative training sessions, ensure you have installed and/or have access to **RStudio**. To run the analysis and reproduce the code in R, you need the following software installed on your machine:
+
 - R-4.2.2
 - RStudio 2022.12.0-353
 
@@ -67,4 +70,4 @@ Example datasets could be accessed through Canvas or the [GitHub](https://github
 - 2021 Annulation Population Survey.
 - 2016 Family Resource Survey.
 
-*Note: The Annual Population Survey requires the completion of a form prior to its usage, as it is licensed).*
+*Note: The Annual Population Survey requires the completion of a form prior to its usage, as it is licensed.*
