@@ -5,7 +5,9 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-In this week’s practical we are going to review how to calculate and visualise correlation coefficients between variables. This practical is split into two parts. The first part focuses on measuring the correlation between and visualising the relationship between **continuous variables**. The second part goes through the implementation of a Linear Regression Model, again between **continuous variables**.
+In this week’s practical we are going to review how to calculate and visualise correlation coefficients between variables. This practical is split into two parts. The first part focuses on measuring the correlation between and visualising the relationship between **continuous variables**. The second part goes through the implementation of a Linear Regression Model, again between continuous variables.
+
+Before getting into it, have a look at this [resource](https://mlu-explain.github.io/linear-regression/), it really helps understand how regression models work.
 
 Learning Objectives:
 
