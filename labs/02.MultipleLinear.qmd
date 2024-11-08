@@ -22,7 +22,7 @@ Learning Objectives:
 
 ### Data Overview: Descriptive Statistics:
 
-Let's start by picking **one dataset derived from the UK 2021 Census data**. You can choose one dataset that aggregates data either at a) county, b) district, or c) ward-level. Lower Tier Local Authority-, Region-, and Country-level data is also available in the data folder.
+Let's start by picking **one dataset derived from the English-Wales 2021 Census data**. You can choose one dataset that aggregates data either at a) county, b) district, or c) ward-level. Lower Tier Local Authority-, Region-, and Country-level data is also available in the data folder.
 
 see also: https://canvas.liverpool.ac.uk/courses/77895/pages/census-data-2021
 
