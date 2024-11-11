@@ -16,7 +16,17 @@ Learning Objectives:
 -   Build a formal regression model.
 -   Understand how to estimate and interpret a multiple linear regression model.
 
-*Note for the practical: copy/editor/document the code in your own `.qmd` file. The code is supposed to be run as if the script was placed in the course folder, containing the dataset. That should be the working directory of RStudio.*
+
+
+
+
+*Note for the practical: copy/edit/document the code in your own `.qmd` file. The code is supposed to be run as if the script was placed in the course folder or in the folder `labs`.*
+
+*Note on file paths*:
+When calling the `read.csv` function, the path will vary depending on the location of the script it is being executed or your working directory (WD):
+
+1.  **If the script or your WD is in a sub-folder** (e.g., `labs`), use `"../data/Census2021/EW_DistrictPercentages.csv"`.  The `..` tells R to go one level up to the main directory (`stats/`) and then access the `data/` folder.   **Example**: `read.csv("../data/Census2021/EW_DistrictPercentages.csv")`.
+2.  **If the script is in the main directory** (e.g. inside `stats/`), you can access the data directly using `"data/Census2021/EW_DistrictPercentages.csv"`. Here, no `..` is necessary as the `data/` folder is directly accessible from the working directory. **Example**: `read.csv("data/Census2021/EW_DistrictPercentages.csv")`
 
 ## Part I. Correlation
 
