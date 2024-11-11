@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriele Filomena">
-<meta name="dcterms.date" content="2024-11-08">
+<meta name="dcterms.date" content="2024-11-11">
 
 <title>Exploring the Social World - Quantitative Block: Statistics - 2&nbsp; Lab: Correlation, Single, and Multiple Linear Regression</title>
 <style>
@@ -251,7 +251,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 8, 2024</p>
+      <p class="date">November 11, 2024</p>
     </div>
   </div>
   
@@ -272,7 +272,12 @@ window.Quarto = {
 <li>Build a formal regression model.</li>
 <li>Understand how to estimate and interpret a multiple linear regression model.</li>
 </ul>
-<p><em>Note for the practical: copy/editor/document the code in your own <code>.qmd</code> file. The code is supposed to be run as if the script was placed in the course folder, containing the dataset. That should be the working directory of RStudio.</em></p>
+<p><em>Note for the practical: copy/edit/document the code in your own <code>.qmd</code> file. The code is supposed to be run as if the script was placed in the course folder or in the folder <code>labs</code>.</em></p>
+<p><em>Note on file paths</em>: When calling the <code>read.csv</code> function, the path will vary depending on the location of the script it is being executed or your working directory (WD):</p>
+<ol type="1">
+<li><strong>If the script or your WD is in a sub-folder</strong> (e.g., <code>labs</code>), use <code>"../data/Census2021/EW_DistrictPercentages.csv"</code>. The <code>..</code> tells R to go one level up to the main directory (<code>stats/</code>) and then access the <code>data/</code> folder. <strong>Example</strong>: <code>read.csv("../data/Census2021/EW_DistrictPercentages.csv")</code>.</li>
+<li><strong>If the script is in the main directory</strong> (e.g.&nbsp;inside <code>stats/</code>), you can access the data directly using <code>"data/Census2021/EW_DistrictPercentages.csv"</code>. Here, no <code>..</code> is necessary as the <code>data/</code> folder is directly accessible from the working directory. <strong>Example</strong>: <code>read.csv("data/Census2021/EW_DistrictPercentages.csv")</code></li>
+</ol>
 <section id="part-i.-correlation" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="part-i.-correlation"><span class="header-section-number">2.1</span> Part I. Correlation</h2>
 <section id="data-overview-descriptive-statistics" class="level3" data-number="2.1.1">
