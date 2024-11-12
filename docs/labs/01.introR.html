@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Gabriele Filomena">
-<meta name="dcterms.date" content="2024-11-11">
+<meta name="dcterms.date" content="2024-11-12">
 
 <title>Exploring the Social World - Quantitative Block: Statistics - 1&nbsp; Lab: Introduction to R for Statistics</title>
 <style>
@@ -233,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 11, 2024</p>
+      <p class="date">November 12, 2024</p>
     </div>
   </div>
   
@@ -346,8 +346,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>File paths in R work like this:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 18%">
-<col style="width: 81%">
+<col style="width: 22%">
+<col style="width: 77%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -634,7 +634,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="1.3.2" class="anchored" data-anchor-id="importing-data-in-r"><span class="header-section-number">1.3.2</span> Importing Data in R</h3>
 <p>From: https://raw.githubusercontent.com/dereksonderegger/570L/master/07_DataImport.Rmd</p>
 <p>Usually we won’t type the data in by hand, but rather load the data from some package. Reading data from external sources is a necessary skill.</p>
-<p><strong><em>Comma Separated Values</em> Data</strong></p>
+<p><strong><em>Comma Separated Values</em></strong> <strong>Data</strong></p>
 <p>To consider how data might be stored, we first consider the simplest file format: the comma separated values file (<code>.csv</code>). In this file time, each of the “cells” of data are separated by a comma. For example, the data file storing scores for three students might be as follows:</p>
 <pre><code>Able, Dave, 98, 92, 94
 Bowles, Jason, 85, 89, 91
@@ -655,9 +655,9 @@ Carr, Jasmine, 81, 96, 97</code></pre>
 <p>The primary function that we’ll use to read data from a file and into R is the function <code>read.csv()</code>. This function has many optional arguments but the most commonly used ones are outlined in the table below.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 9%">
-<col style="width: 76%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 66%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -872,141 +872,148 @@ Carr, Jasmine, 81, 96, 97</code></pre>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the FRS dataset should be already loaded, otherwise</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>frs_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/FamilyResourceSurvey/FRS16-17.csv"</span>) </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>frs_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/FamilyResourceSurvey/FRS16-17_labels.csv"</span>) </span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display basic structure </span></span>
 <span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(frs_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 44,145
 Columns: 45
-$ household        &lt;int&gt; 1, 1, 1, 1, 1, 2, 3, 3, 3, 3, 4, 4, 4, 5, 6, 6, 7, 7,…
-$ family           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1,…
-$ person           &lt;int&gt; 1, 2, 3, 4, 5, 1, 1, 2, 3, 4, 1, 2, 3, 1, 1, 2, 1, 2,…
-$ country          &lt;int&gt; 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1,…
-$ region           &lt;int&gt; 8, 8, 8, 8, 8, 12, 4, 4, 4, 4, 11, 11, 11, 6, 8, 8, 4…
-$ age_group        &lt;int&gt; 9, 9, 2, 2, 4, 8, 8, 8, 2, 1, 13, 12, 7, 14, 7, 8, 15…
-$ sex              &lt;int&gt; 2, 1, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 2, 2, 1, 1, 2, 1,…
-$ marital_status   &lt;int&gt; 3, 3, 1, 1, 1, 1, 3, 3, 1, 1, 3, 3, 1, 1, 3, 3, 3, 3,…
-$ ethnicity        &lt;int&gt; 8, 8, 8, 8, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-$ hrp              &lt;int&gt; 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1,…
-$ rel_to_hrp       &lt;int&gt; 1, 0, 3, 3, 4, 0, 0, 1, 4, 3, 0, 1, 3, 0, 1, 0, 1, 0,…
-$ lifestage        &lt;int&gt; 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1,…
-$ dependent        &lt;int&gt; 2, 2, 1, 1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2,…
-$ arrival_year     &lt;int&gt; 1995, 1995, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -…
-$ birth_country    &lt;int&gt; 8, 8, -9, -9, -9, 3, 1, 1, -9, -9, 2, 2, 2, 1, 4, 8, …
-$ care_hours       &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
-$ educ_age         &lt;int&gt; 17, 17, -9, -9, -9, 30, 21, 18, -9, -9, 19, 18, 17, 2…
-$ educ_type        &lt;int&gt; 10, 0, 1, 1, 1, 4, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0…
-$ fam_youngest     &lt;int&gt; 6, 6, 6, 6, 6, -1, 4, 4, 4, 4, -1, -1, -1, -1, -1, -1…
-$ fam_toddlers     &lt;int&gt; 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,…
-$ fam_size         &lt;int&gt; 5, 5, 5, 5, 5, 1, 4, 4, 4, 4, 2, 2, 1, 1, 2, 2, 2, 2,…
-$ happy            &lt;int&gt; 1, 6, -9, -9, -9, 4, 4, -1, -9, -9, 7, 7, 7, 10, 8, -…
-$ health           &lt;int&gt; 1, 1, -1, -1, 1, 2, 3, -1, -1, -1, 2, 2, 2, 3, 2, -1,…
-$ hh_accom_type    &lt;int&gt; 3, 3, 3, 3, 3, 4, 1, 1, 1, 1, 1, 1, 1, 2, 4, 4, 2, 2,…
-$ hh_benefits      &lt;int&gt; 2496, 2496, 2496, 2496, 2496, 0, 1768, 1768, 1768, 17…
-$ hh_composition   &lt;int&gt; 6, 6, 6, 6, 6, 2, 6, 6, 6, 6, 9, 9, 9, 1, 7, 7, 5, 5,…
-$ hh_ctax_band     &lt;int&gt; 4, 4, 4, 4, 4, 8, 4, 4, 4, 4, 7, 7, 7, 4, 4, 4, 2, 2,…
-$ hh_housing_costs &lt;int&gt; 8060, 8060, 8060, 8060, 8060, 6604, 4108, 4108, 4108,…
-$ hh_income_gross  &lt;int&gt; 29640, 29640, 29640, 29640, 29640, 17264, 78520, 7852…
-$ hh_income_net    &lt;int&gt; 26884, 26884, 26884, 26884, 26884, 17264, 60112, 6011…
-$ hh_size          &lt;int&gt; 5, 5, 5, 5, 5, 1, 4, 4, 4, 4, 3, 3, 3, 1, 2, 2, 2, 2,…
-$ hh_tenure        &lt;int&gt; 3, 3, 3, 3, 3, 4, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 1, 1,…
-$ highest_qual     &lt;int&gt; 2, 3, -9, -9, -9, 2, 1, 1, -9, -9, 3, 3, 3, 1, 1, 1, …
-$ income_gross     &lt;dbl&gt; 2496, 27144, 0, 0, 0, 17264, 40924, 37596, 0, 0, -301…
-$ income_net       &lt;dbl&gt; 2496, 24388, 0, 0, 0, 17264, 31772, 28340, 0, 0, -317…
-$ jobs             &lt;int&gt; 0, 1, -9, -9, -9, 1, 1, 1, -9, -9, 1, 1, 1, 1, 1, 1, …
-$ life_satisf      &lt;int&gt; 8, 5, -9, -9, -9, 6, 8, -1, -9, -9, 7, 7, 7, 9, 9, -1…
-$ nssec            &lt;int&gt; 7, 7, 12, 12, 12, 10, 1, 3, 12, 12, 5, 3, 3, 7, 5, 3,…
-$ sic_chapter      &lt;int&gt; 17, 14, -9, -9, -9, 7, 13, 13, -9, -9, 1, 17, 3, 7, 1…
-$ sic_division     &lt;int&gt; 87, 80, -9, -9, -9, 47, 72, 72, -9, -9, 1, 88, 28, 47…
-$ soc2010          &lt;int&gt; 6, 6, -9, -9, -9, 9, 1, 3, -9, -9, 5, 2, 3, 7, 1, 4, …
-$ work_hours       &lt;dbl&gt; -2.0, 48.0, -9.0, -9.0, -9.0, 12.0, 40.0, 37.0, -9.0,…
-$ workstatus       &lt;int&gt; 8, 1, -9, -9, -9, 1, 1, 1, -9, -9, 3, 1, 1, 2, 3, 1, …
-$ years_ft_work    &lt;int&gt; 16, 25, -9, -9, -9, 8, 18, 15, -9, -9, 41, 30, 15, 10…
-$ survey_weight    &lt;int&gt; 1870, 1870, 1870, 1870, 1870, 1083, 1571, 1571, 1571,…</code></pre>
+$ household        &lt;int&gt; 6087, 6101, 6103, 6122, 6134, 6136, 6138, 6140, 6143,…
+$ family           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+$ person           &lt;int&gt; 5, 3, 3, 3, 2, 4, 4, 3, 3, 4, 4, 3, 4, 2, 5, 3, 4, 3,…
+$ country          &lt;chr&gt; "England", "England", "England", "Northern Ireland", …
+$ region           &lt;chr&gt; "London", "South East", "Yorks and the Humber", "Nort…
+$ age_group        &lt;chr&gt; "05-10", "05-10", "05-10", "05-10", "05-10", "05-10",…
+$ sex              &lt;chr&gt; "Female", "Male", "Male", "Female", "Female", "Female…
+$ marital_status   &lt;chr&gt; "Single", "Single", "Single", "Single", "Single", "Si…
+$ ethnicity        &lt;chr&gt; "Mixed / multiple ethnic groups", "White", "White", "…
+$ hrp              &lt;chr&gt; "Not HRP", "Not HRP", "Not HRP", "Not HRP", "Not HRP"…
+$ rel_to_hrp       &lt;chr&gt; "Son/daughter (incl. adopted)", "Son/daughter (incl. …
+$ lifestage        &lt;chr&gt; "Child (0-17)", "Child (0-17)", "Child (0-17)", "Chil…
+$ dependent        &lt;chr&gt; "Dependent", "Dependent", "Dependent", "Dependent", "…
+$ arrival_year     &lt;chr&gt; "UK Born", "UK Born", "UK Born", "UK Born", "UK Born"…
+$ birth_country    &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ care_hours       &lt;chr&gt; "0 hours per week", "0 hours per week", "0 hours per …
+$ educ_age         &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ educ_type        &lt;chr&gt; "School (full-time)", "School (full-time)", "School (…
+$ fam_youngest     &lt;chr&gt; "7", "4", "0", "7", "0", "9", "10", "0", "3", "10", "…
+$ fam_toddlers     &lt;int&gt; 0, 1, 1, 0, 2, 0, 0, 2, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1,…
+$ fam_size         &lt;int&gt; 4, 4, 4, 3, 4, 4, 3, 5, 4, 4, 3, 4, 4, 3, 5, 4, 4, 4,…
+$ happy            &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ health           &lt;chr&gt; "Not known", "Not known", "Not known", "Not known", "…
+$ hh_accom_type    &lt;chr&gt; "Terraced house/bungalow", "Detached house/bungalow",…
+$ hh_benefits      &lt;int&gt; 10868, 0, 1768, 8632, 8372, 1768, 1768, 1768, 0, 0, 1…
+$ hh_composition   &lt;chr&gt; "Three or more adults, 1+ children", "One adult femal…
+$ hh_ctax_band     &lt;chr&gt; "Band D", "Band F", "Band A", "Band B", "Band A", "Ba…
+$ hh_housing_costs &lt;chr&gt; "4316", "10296", "5408", "Northern Ireland", "5720", …
+$ hh_income_gross  &lt;int&gt; 54236, 180804, 26936, 19968, 17992, 76596, 31564, 366…
+$ hh_income_net    &lt;int&gt; 44668, 120640, 23556, 19968, 17992, 62868, 29744, 287…
+$ hh_size          &lt;int&gt; 5, 4, 4, 3, 4, 4, 4, 5, 4, 4, 4, 4, 4, 5, 5, 4, 4, 4,…
+$ hh_tenure        &lt;chr&gt; "Mortgaged (including part rent / part own)", "Mortga…
+$ highest_qual     &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ income_gross     &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ income_net       &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ jobs             &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ life_satisf      &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ nssec            &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ sic_chapter      &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ sic_division     &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ soc2010          &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ work_hours       &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ workstatus       &lt;chr&gt; "Dependent Child", "Dependent Child", "Dependent Chil…
+$ years_ft_work    &lt;chr&gt; "Dependent child", "Dependent child", "Dependent chil…
+$ survey_weight    &lt;int&gt; 2315, 1317, 2449, 427, 1017, 1753, 1363, 1344, 828, 1…</code></pre>
 </div>
 </div>
 <p>and summary:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(frs_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   household         family          person        country          region    
- Min.   :    1   Min.   :1.000   Min.   :1.00   Min.   :1.000   Min.   : 1.0  
- 1st Qu.: 4816   1st Qu.:1.000   1st Qu.:1.00   1st Qu.:1.000   1st Qu.: 5.0  
- Median : 9673   Median :1.000   Median :2.00   Median :1.000   Median : 8.0  
- Mean   : 9677   Mean   :1.106   Mean   :1.98   Mean   :1.618   Mean   : 7.8  
- 3rd Qu.:14553   3rd Qu.:1.000   3rd Qu.:3.00   3rd Qu.:2.000   3rd Qu.:11.0  
- Max.   :19380   Max.   :6.000   Max.   :9.00   Max.   :4.000   Max.   :13.0  
-   age_group           sex        marital_status    ethnicity    
- Min.   : 1.000   Min.   :1.000   Min.   :1.000   Min.   :1.000  
- 1st Qu.: 5.000   1st Qu.:1.000   1st Qu.:1.000   1st Qu.:1.000  
- Median : 9.000   Median :2.000   Median :3.000   Median :1.000  
- Mean   : 8.707   Mean   :1.519   Mean   :2.429   Mean   :1.462  
- 3rd Qu.:13.000   3rd Qu.:2.000   3rd Qu.:3.000   3rd Qu.:1.000  
- Max.   :16.000   Max.   :2.000   Max.   :6.000   Max.   :9.000  
-      hrp          rel_to_hrp       lifestage       dependent    
- Min.   :0.000   Min.   : 0.000   Min.   :0.000   Min.   :1.000  
- 1st Qu.:0.000   1st Qu.: 0.000   1st Qu.:1.000   1st Qu.:2.000  
- Median :0.000   Median : 1.000   Median :1.000   Median :2.000  
- Mean   :0.439   Mean   : 1.553   Mean   :0.773   Mean   :1.766  
- 3rd Qu.:1.000   3rd Qu.: 3.000   3rd Qu.:1.000   3rd Qu.:2.000  
- Max.   :1.000   Max.   :20.000   Max.   :1.000   Max.   :2.000  
-  arrival_year    birth_country       care_hours        educ_age    
- Min.   :  -9.0   Min.   :-9.0000   Min.   :0.0000   Min.   :-9.00  
- 1st Qu.:  -9.0   1st Qu.: 1.0000   1st Qu.:0.0000   1st Qu.:-1.00  
- Median :  -9.0   Median : 1.0000   Median :0.0000   Median :16.00  
- Mean   : 207.4   Mean   :-0.1686   Mean   :0.2819   Mean   :11.14  
- 3rd Qu.:  -9.0   3rd Qu.: 3.0000   3rd Qu.:0.0000   3rd Qu.:18.00  
- Max.   :2017.0   Max.   : 8.0000   Max.   :7.0000   Max.   :55.00  
-   educ_type       fam_youngest     fam_toddlers       fam_size    
- Min.   : 0.000   Min.   :-1.000   Min.   :0.0000   Min.   :1.000  
- 1st Qu.: 0.000   1st Qu.:-1.000   1st Qu.:0.0000   1st Qu.:2.000  
- Median : 0.000   Median :-1.000   Median :0.0000   Median :2.000  
- Mean   : 0.392   Mean   : 2.466   Mean   :0.2557   Mean   :2.599  
- 3rd Qu.: 0.000   3rd Qu.: 5.000   3rd Qu.:0.0000   3rd Qu.:4.000  
- Max.   :10.000   Max.   :19.000   Max.   :4.0000   Max.   :9.000  
-     happy            health        hh_accom_type     hh_benefits   
- Min.   :-9.000   Min.   :-1.0000   Min.   :-1.000   Min.   :    0  
- 1st Qu.:-1.000   1st Qu.:-1.0000   1st Qu.: 1.000   1st Qu.:    0  
- Median : 5.000   Median : 1.0000   Median : 2.000   Median : 1768  
- Mean   : 2.197   Mean   : 0.9781   Mean   : 2.326   Mean   : 5670  
- 3rd Qu.: 8.000   3rd Qu.: 2.0000   3rd Qu.: 3.000   3rd Qu.:10192  
- Max.   :10.000   Max.   : 5.0000   Max.   : 7.000   Max.   :54080  
- hh_composition    hh_ctax_band   hh_housing_costs hh_income_gross  
- Min.   : 1.000   Min.   :1.000   Min.   :    -1   Min.   :-326092  
- 1st Qu.: 5.000   1st Qu.:2.000   1st Qu.:   572   1st Qu.:  22256  
- Median : 6.000   Median :3.000   Median :  2704   Median :  35984  
- Mean   : 5.474   Mean   :3.198   Mean   :  3820   Mean   :  46076  
- 3rd Qu.: 6.000   3rd Qu.:4.000   3rd Qu.:  5616   3rd Qu.:  57252  
- Max.   :10.000   Max.   :8.000   Max.   :135720   Max.   :1165216  
- hh_income_net        hh_size       hh_tenure      highest_qual     
- Min.   :-334776   Min.   :1.00   Min.   :1.000   Min.   :-9.00000  
- 1st Qu.:  20748   1st Qu.:2.00   1st Qu.:1.000   1st Qu.: 1.00000  
- Median :  31512   Median :3.00   Median :2.000   Median : 2.00000  
- Mean   :  37447   Mean   :2.96   Mean   :2.369   Mean   : 0.04098  
- 3rd Qu.:  47008   3rd Qu.:4.00   3rd Qu.:3.000   3rd Qu.: 3.00000  
- Max.   :1116596   Max.   :9.00   Max.   :5.000   Max.   : 5.00000  
-  income_gross       income_net           jobs         life_satisf   
- Min.   :-354848   Min.   :-358592   Min.   :-9.000   Min.   :-9.00  
- 1st Qu.:     52   1st Qu.:      0   1st Qu.: 0.000   1st Qu.:-1.00  
- Median :  12740   Median :  12012   Median : 0.000   Median : 6.00  
- Mean   :  17305   Mean   :  14204   Mean   :-1.644   Mean   : 2.23  
- 3rd Qu.:  23712   3rd Qu.:  20384   3rd Qu.: 1.000   3rd Qu.: 8.00  
- Max.   :1127360   Max.   :1110928   Max.   : 4.000   Max.   :10.00  
-     nssec         sic_chapter      sic_division      soc2010      
- Min.   : 1.000   Min.   :-9.000   Min.   :-9.00   Min.   :-9.000  
- 1st Qu.: 3.000   1st Qu.:-2.000   1st Qu.:-2.00   1st Qu.:-2.000  
- Median : 7.000   Median : 7.000   Median :47.00   Median : 3.000  
- Mean   : 6.707   Mean   : 5.351   Mean   :40.85   Mean   : 1.229  
- 3rd Qu.:10.000   3rd Qu.:15.000   3rd Qu.:84.00   3rd Qu.: 6.000  
- Max.   :12.000   Max.   :21.000   Max.   :99.00   Max.   : 9.000  
-   work_hours       workstatus      years_ft_work   survey_weight  
- Min.   : -9.00   Min.   :-9.0000   Min.   :-9.00   Min.   :  221  
- 1st Qu.: -2.00   1st Qu.: 1.0000   1st Qu.:-1.00   1st Qu.: 1097  
- Median : -2.00   Median : 1.0000   Median :11.00   Median : 1380  
- Mean   : 12.75   Mean   : 0.8902   Mean   :14.15   Mean   : 1459  
- 3rd Qu.: 37.00   3rd Qu.: 6.0000   3rd Qu.:30.00   3rd Qu.: 1742  
- Max.   :150.00   Max.   :11.0000   Max.   :73.00   Max.   :39675  </code></pre>
+<pre><code>   household         family          person       country         
+ Min.   :    1   Min.   :1.000   Min.   :1.00   Length:44145      
+ 1st Qu.: 4816   1st Qu.:1.000   1st Qu.:1.00   Class :character  
+ Median : 9673   Median :1.000   Median :2.00   Mode  :character  
+ Mean   : 9677   Mean   :1.106   Mean   :1.98                     
+ 3rd Qu.:14553   3rd Qu.:1.000   3rd Qu.:3.00                     
+ Max.   :19380   Max.   :6.000   Max.   :9.00                     
+    region           age_group             sex            marital_status    
+ Length:44145       Length:44145       Length:44145       Length:44145      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+  ethnicity             hrp             rel_to_hrp         lifestage        
+ Length:44145       Length:44145       Length:44145       Length:44145      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+  dependent         arrival_year       birth_country       care_hours       
+ Length:44145       Length:44145       Length:44145       Length:44145      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+   educ_age          educ_type         fam_youngest        fam_toddlers   
+ Length:44145       Length:44145       Length:44145       Min.   :0.0000  
+ Class :character   Class :character   Class :character   1st Qu.:0.0000  
+ Mode  :character   Mode  :character   Mode  :character   Median :0.0000  
+                                                          Mean   :0.2557  
+                                                          3rd Qu.:0.0000  
+                                                          Max.   :4.0000  
+    fam_size        happy              health          hh_accom_type     
+ Min.   :1.000   Length:44145       Length:44145       Length:44145      
+ 1st Qu.:2.000   Class :character   Class :character   Class :character  
+ Median :2.000   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :2.599                                                           
+ 3rd Qu.:4.000                                                           
+ Max.   :9.000                                                           
+  hh_benefits    hh_composition     hh_ctax_band       hh_housing_costs  
+ Min.   :    0   Length:44145       Length:44145       Length:44145      
+ 1st Qu.:    0   Class :character   Class :character   Class :character  
+ Median : 1768   Mode  :character   Mode  :character   Mode  :character  
+ Mean   : 5670                                                           
+ 3rd Qu.:10192                                                           
+ Max.   :54080                                                           
+ hh_income_gross   hh_income_net        hh_size      hh_tenure        
+ Min.   :-326092   Min.   :-334776   Min.   :1.00   Length:44145      
+ 1st Qu.:  22256   1st Qu.:  20748   1st Qu.:2.00   Class :character  
+ Median :  35984   Median :  31512   Median :3.00   Mode  :character  
+ Mean   :  46076   Mean   :  37447   Mean   :2.96                     
+ 3rd Qu.:  57252   3rd Qu.:  47008   3rd Qu.:4.00                     
+ Max.   :1165216   Max.   :1116596   Max.   :9.00                     
+ highest_qual        income_gross       income_net          jobs          
+ Length:44145       Min.   :-354848   Min.   :-358592   Length:44145      
+ Class :character   1st Qu.:     52   1st Qu.:      0   Class :character  
+ Mode  :character   Median :  12740   Median :  12012   Mode  :character  
+                    Mean   :  17305   Mean   :  14204                     
+                    3rd Qu.:  23712   3rd Qu.:  20384                     
+                    Max.   :1127360   Max.   :1110928                     
+ life_satisf           nssec           sic_chapter        sic_division      
+ Length:44145       Length:44145       Length:44145       Length:44145      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+   soc2010           work_hours         workstatus        years_ft_work     
+ Length:44145       Length:44145       Length:44145       Length:44145      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+ survey_weight  
+ Min.   :  221  
+ 1st Qu.: 1097  
+ Median : 1380  
+ Mean   : 1459  
+ 3rd Qu.: 1742  
+ Max.   :39675  </code></pre>
 </div>
 </div>
 </section>
@@ -1020,14 +1027,14 @@ $ survey_weight    &lt;int&gt; 1870, 1870, 1870, 1870, 1870, 1083, 1571, 1571, 1
 <p>Below is an example dataset structure:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 6%">
-<col style="width: 16%">
-<col style="width: 8%">
-<col style="width: 6%">
-<col style="width: 21%">
-<col style="width: 27%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1189,7 +1196,7 @@ $ survey_weight    &lt;int&gt; 1870, 1870, 1870, 1870, 1870, 1083, 1571, 1571, 1
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset (replace 'frs_data.csv' with the actual file path)</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>frs_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/FamilyResourceSurvey/FRS16-17.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>frs_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/FamilyResourceSurvey/FRS16-17_labels.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Open the dataset in RStudio’s <strong>Data Viewer</strong> to explore its structure, including the <code>income_gross</code> and <code>income_net</code> variables.</p>
 <div class="cell">
@@ -1327,7 +1334,7 @@ $ survey_weight    &lt;int&gt; 1870, 1870, 1870, 1870, 1870, 1083, 1571, 1571, 1
 <div class="cell-output cell-output-stdout">
 <pre><code>
        &lt;= £10,000 £10,001 - £49,999        &gt;= £50,000 
-             8584             22981              2271 </code></pre>
+                0                 0                 0 </code></pre>
 </div>
 </div>
 <p>After preparing the data, use cross-tabulations to compare income levels across demographic groups.</p>
@@ -1335,16 +1342,7 @@ $ survey_weight    &lt;int&gt; 1870, 1870, 1870, 1870, 1870, 1083, 1571, 1571, 1
 <div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-tabulate income category by age group, nationality, etc.</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(frs_independent<span class="sc">$</span>income_category, frs_independent<span class="sc">$</span>age_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                   
-                       4    5    6    7    8    9   10   11   12   13   14   15
-  &lt;= £10,000         373  680  492  558  474  511  554  652  781  826  773  744
-  £10,001 - £49,999  263 1241 1802 2056 2052 1948 1995 1967 1749 1772 2073 1554
-  &gt;= £50,000           1    8   59  186  314  331  334  356  237  177  144   56
-                   
-                      16
-  &lt;= £10,000        1166
-  £10,001 - £49,999 2509
-  &gt;= £50,000          68</code></pre>
+<pre><code>&lt; table of extent 3 x 0 &gt;</code></pre>
 </div>
 </div>
 <p>Explore income distribution across different regions.</p>
@@ -1352,11 +1350,7 @@ $ survey_weight    &lt;int&gt; 1870, 1870, 1870, 1870, 1870, 1083, 1571, 1571, 1
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-tabulate income category by region</span></span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(frs_independent<span class="sc">$</span>income_category, frs_independent<span class="sc">$</span>region) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                   
-                       1    2    4    5    6    7    8    9   10   11   12   13
-  &lt;= £10,000         357  878  670  562  744  665  740  895  588  399 1212  874
-  £10,001 - £49,999  979 2347 1728 1550 1892 1855 1850 2563 1707  971 3234 2305
-  &gt;= £50,000          48  174  114  135  164  245  367  367  149   63  322  123</code></pre>
+<pre><code>&lt; table of extent 3 x 0 &gt;</code></pre>
 </div>
 </div>
 <p><strong>Tips for Cross-Tabulation</strong></p>
