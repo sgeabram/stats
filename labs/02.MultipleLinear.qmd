@@ -17,9 +17,6 @@ Learning Objectives:
 -   Understand how to estimate and interpret a multiple linear regression model.
 
 
-
-
-
 *Note for the practical: copy/edit/document the code in your own `.qmd` file. The code is supposed to be run as if the script was placed in the course folder or in the folder `labs`.*
 
 *Note on file paths*:
