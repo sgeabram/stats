@@ -1,4 +1,3 @@
-
 ---
 title: "Lab: Introduction to R for Statistics"
 author: "Gabriele Filomena"
@@ -8,9 +7,8 @@ output: html_document
 
 *The following material has been readapted from*:
 
-- https://dereksonderegger.github.io/570L/1-introduction.html by Derek L. Sonderegger; 
-- https://pietrostefani.github.io/gds/environR.html by Elisabetta Pietrostefani and Carmen Cabrera-Arnau.*
-
+-   https://dereksonderegger.github.io/570L/1-introduction.html by Derek L. Sonderegger;
+-   https://pietrostefani.github.io/gds/environR.html by Elisabetta Pietrostefani and Carmen Cabrera-Arnau.\*
 
 The lecture's slides can be found [here](https://github.com/GDSL-UL/stats/blob/main/lectures/lecture07.pdf).
 
@@ -22,22 +20,24 @@ For the lab sessions and your assignment, you will need the following software:
 
 To install and update:
 
--   R, download the appropriate version from  [The Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/)
--   RStudio, download the appropriate version from  [Posit](https://posit.co/download/rstudio-desktop/)
+-   R, download the appropriate version from [The Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/)
+-   RStudio, download the appropriate version from [Posit](https://posit.co/download/rstudio-desktop/)
 
 ## R?
 
-R is an open-source program that is commonly used in Statistics. It runs on almost every platform and is completely free and is available at [www.r-project.org](www.r-project.org). Most of the cutting-edge statistical research is first available on R. 
+R is an open-source program that is commonly used in Statistics. It runs on almost every platform and is completely free and is available at [www.r-project.org](www.r-project.org). Most of the cutting-edge statistical research is first available on R.
 
 R is a script based language, so there is no point and click interface. While the initial learning curve will be steeper, understanding how to write scripts will be valuable because it leaves a clear description of what steps you performed in your data analysis. Typically you will want to write a script in a separate file and then run individual lines. This saves you from having to retype a bunch of commands and speeds up the debugging process.
 
 ## R(Studio) Basics
 
-We will be running R through the program RStudio which is located at [rstudio.com](http://www.rstudio.org).  When you first open up RStudio the console window gives you some information about the version of R you are running and then it gives the prompt `>`.  This prompt is waiting for you to input a command. The prompt + tells you that the current command is spanning multiple lines. In a script file you might have typed something like this:
+We will be running R through the program RStudio which is located at [rstudio.com](http://www.rstudio.org). When you first open up RStudio the console window gives you some information about the version of R you are running and then it gives the prompt `>`. This prompt is waiting for you to input a command. The prompt + tells you that the current command is spanning multiple lines. In a script file you might have typed something like this:
 
-    for( i in 1:5 ){
-        print(i)
-    }
+```         
+for( i in 1:5 ){
+    print(i)
+}
+```
 
 Finding help about a certain function is very easy. At the prompt, just type `help(function.name)` or `?function.name`. If you don't know the name of the function, your best bet is to go the the web page www.rseek.org which will search various R resources for your keyword(s). Another great resource is the coding question and answer site [stackoverflow](http://stackoverflow.com).
 
@@ -51,8 +51,8 @@ knitr::include_graphics("../img/environ_R_1.png")
 
 *Note*: the **Pane Layout** and **Appearance** settings can be altered:
 
-- on Windows by clicking RStudio\>Tools\>Global Options\>Appearance or Pane Layout
-- on Mac OS by clicking RStudio\>Preferences\>Appearance or Pane Layout.
+-   on Windows by clicking RStudio\>Tools\>Global Options\>Appearance or Pane Layout
+-   on Mac OS by clicking RStudio\>Preferences\>Appearance or Pane Layout.
 
 You will also have a standard white background; but you can choose specific [themes](https://quarto.org/docs/output-formats/html-themes.html).
 
@@ -79,10 +79,10 @@ This panel helps track variables, functions, and the history of commands used. I
 -   Environment Tab: Shows all current variables, datasets, and objects in your session, including their structure and values.
 -   History Tab: Provides a record of past commands. You can re-run or move commands to the console or script.
 
- **Files / Plots / Packages / Help Panel (Bottom-Right)**
- 
+**Files / Plots / Packages / Help Panel (Bottom-Right)**
+
 This multifunctional panel is for file navigation, plotting, managing packages, viewing help, and managing jobs. It contains:
- 
+
 -   Files Tab: Navigate, open, and manage files and directories within your project.
 -   Plots Tab: Displays plots generated in your session. You can export or navigate through multiple plots here.
 -   Packages Tab: Lists installed packages and allows you to install, load, and update packages.
@@ -96,43 +96,43 @@ At the start of a session, it's good practice clearing your R environment (conso
 rm(list = ls())
 ```
 
-In R, we are going to be working with **relative paths**. With the command `getwd()`, you can see where your working directory is currently set. 
+In R, we are going to be working with **relative paths**. With the command `getwd()`, you can see where your working directory is currently set.
 
 ```{r results='hide'}
 getwd() 
 ```
-For ENVS225, download the [material](https://github.com/GDSL-UL/stats/archive/refs/heads/main.zip) of the module an unzip it whever you like. 
+
+For ENVS225, download the [material](https://github.com/GDSL-UL/stats/archive/refs/heads/main.zip) of the module an unzip it whever you like.
 
 The folder structure should look like:
 
-```
+```         
 stats/
 ├── data/
 ├── labs_img/
 └── labs/
 ```
-You can delete other sub-folders (e.g. docs). 
 
-<span style="color: red;">This should be on your personal computer or if on a local machine, I suggest using the directory M:\ to store the folder, it can be accessed from every computer.</span>
+You can delete other sub-folders (e.g. docs).
 
-Then, in R Studio
-- on Windows by clicking RStudio\>Tools\>Global Options\>General.. 
-- on Mac OS by clicking RStudio\>Preferences\>Appearance or Pane Layout...
+[This should be on your personal computer or if on a local machine, I suggest using the directory M: to store the folder, it can be accessed from every computer.]{style="color: red;"}
 
-browse and set the folder you just creted as your working directory. 
+Then, in R Studio - on Windows by clicking RStudio\>Tools\>Global Options\>General.. - on Mac OS by clicking RStudio\>Preferences\>Appearance or Pane Layout...
+
+browse and set the folder you just creted as your working directory.
 
 Check if that has been applied.
+
 ```{r results='hide'}
 getwd() 
 ```
 
 File paths in R work like this:
 
-| File Path              | Description                                                                                              |
-|------------------------|----------------------------------------------------------------------------------------------------------|
-| `MyFile.csv`           | Look in the working directory for `MyFile.csv`.                                                          |
-| `MyFolder/MyFile.csv`  | In the working directory, there is a subdirectory called `MyFolder` and inside that folder is `MyFile.csv`. |
-
+| File Path             | Description                                                                                                 |
+|----------------|-------------------------------------------------------|
+| `MyFile.csv`          | Look in the working directory for `MyFile.csv`.                                                             |
+| `MyFolder/MyFile.csv` | In the working directory, there is a subdirectory called `MyFolder` and inside that folder is `MyFile.csv`. |
 
 You do not need to set your working directory if you are using an R-markdown or Quarto document and you have it saved in the right location. The pathway will start from where your document is saved.
 
@@ -155,6 +155,7 @@ If you are unsure about what a command does, use the "Help" panel in your Files 
 ### R as a simple calculator
 
 You can use R as a simple calculator. At the prompt, type 2+3 and hit enter. What you should see is the following
+
 ```{r, warning=FALSE, message=FALSE}
 # Some simple addition
 2+3
@@ -168,16 +169,16 @@ In this fashion you can use R as a very capable calculator.
 exp(1)   # exp() is the exponential function
 ```
 
-R has most constants and common mathematical functions you could ever want.  For example, the absolute value of a number is given by `abs()`, and `round()` will round a value to the nearest integer. 
+R has most constants and common mathematical functions you could ever want. For example, the absolute value of a number is given by `abs()`, and `round()` will round a value to the nearest integer.
 
 ```{r, warning=FALSE, message=FALSE}
 pi     # the constant 3.14159265...
 abs(1.77) 
 ```
 
-Whenever you call a function, there will be some arguments that are mandatory, and some that are optional and the arguments are separated by a comma. In the above statements the function `abs()` requires at least one argument, and that is the number you want the absolute value of. 
+Whenever you call a function, there will be some arguments that are mandatory, and some that are optional and the arguments are separated by a comma. In the above statements the function `abs()` requires at least one argument, and that is the number you want the absolute value of.
 
-When functions require more than one argument, arguments can be specified via the order in which they are passed or by naming the arguments. So for the `log()` function, for example, which calculates the logarithm of  a number, one can specify the arguments using the named values; the order woudn't matter:
+When functions require more than one argument, arguments can be specified via the order in which they are passed or by naming the arguments. So for the `log()` function, for example, which calculates the logarithm of a number, one can specify the arguments using the named values; the order woudn't matter:
 
 ```{r, warning=FALSE, message=FALSE}
 # Demonstrating order does not matter if you specify
@@ -198,7 +199,7 @@ When we want to specify the arguments, we can do so using the `name=value` notat
 
 ### Variables Assignment
 
-We need to be able to assign a value to a variable to be able to use it later. R does this by using an arrow `<-` or an equal sign `=`. While R supports either, for readability, I suggest people pick one assignment operator and stick with it. 
+We need to be able to assign a value to a variable to be able to use it later. R does this by using an arrow `<-` or an equal sign `=`. While R supports either, for readability, I suggest people pick one assignment operator and stick with it.
 
 **Variable names cannot start with a number, may not include spaces, and are case sensitive.**
 
@@ -208,7 +209,8 @@ another_var = 5   # notice they show up in 'Environment' tab in RStudio!
 var 
 var * another_var 
 ```
-As your analysis gets more complicated, you'll want to save the results to a variable so that you can access the results later. *If you don't assign the result to a variable, you have no way of accessing the result.* 
+
+As your analysis gets more complicated, you'll want to save the results to a variable so that you can access the results later. *If you don't assign the result to a variable, you have no way of accessing the result.*
 
 ### Working with Scripts
 
@@ -235,7 +237,8 @@ exp(2)
 x <- seq(-2, 2, length=1000)
 plot(x, exp(x))
 ```
-In RStudio you can create a new script by going to `File -> New File -> R Script`. This opens a new window in RStudio where you can type commands and functions as a common text editor. 
+
+In RStudio you can create a new script by going to `File -> New File -> R Script`. This opens a new window in RStudio where you can type commands and functions as a common text editor.
 
 This looks perfectly acceptable as a way of documenting what one does, but this script file doesn't contain the actual results of commands you ran, nor does it show you the plots. Also anytime you want to comment on some output, it needs to be offset with the commenting character `#`. It would be nice to have both the commands and the results merged into one document. This is what the R Markdown file does for us.
 
@@ -243,19 +246,19 @@ This looks perfectly acceptable as a way of documenting what one does, but this 
 
 The R Markdown is an implementation of the Markdown syntax that makes it extremely easy to write webpages or scientific documents that include conde. This syntax was extended to allow users to embed R code directly into more complex documents. Perhaps the easiest way to understand the syntax is to look at an at the [RMarkdown website](http://rmarkdown.rstudio.com).
 
-The R code in a R Markdown document (`.rmd` file extension) can be nicely separated from regular text using the three backticks (3 times `, see below) and an instruction that it is R code that needs to be evaluated. A code chunk will look like:
+The R code in a R Markdown document (`.rmd` file extension) can be nicely separated from regular text using the three backticks (3 times \`, see below) and an instruction that it is R code that needs to be evaluated. A code chunk will look like:
 
 ```{r, warning=FALSE, message=FALSE}
     for (i in 1:5) {print(i)}
 ```
 
-**In ENVS225: In this module we will be using `.qmd` a more flexible development of `.rmd` files.** 
+**In ENVS225: In this module we will be using `.qmd` a more flexible development of `.rmd` files.**
 
 Markdown files present several advantages compared to writing your code in the console or just using scripts. You'll save yourself a huge amount of work by embracing Markdown files from the beginning; you will keep track of your code and your steps, be able to document and present how you did your analysis (helpful when writing the methods section of a paper), and it will make it easier to re-run an analysis after a change in the data (such as additional data values, transformed data, or removal of outliers) or once you spot an error. Finally, it makes the script more readable.
 
 ### R Packages
 
-One of the greatest strengths about R is that so many people have developed add-on packages to do some additional function. To download and install the package from the Comprehensive R Archive Network (CRAN), you just need to ask RStudio it to install it via the menu `Tools` -> `Install Packages...`. Once there, you just need to give the name of the package and RStudio will download and install the package on your computer. 
+One of the greatest strengths about R is that so many people have developed add-on packages to do some additional function. To download and install the package from the Comprehensive R Archive Network (CRAN), you just need to ask RStudio it to install it via the menu `Tools` -\> `Install Packages...`. Once there, you just need to give the name of the package and RStudio will download and install the package on your computer.
 
 Once a package is downloaded and installed on your computer, it is available, but it is not loaded into your current R session by default. To improve overall performance only a few packages are loaded by default and the you must explicitly load packages whenever you want to use them. You only need to load them once per session/script.
 
@@ -268,19 +271,20 @@ library(dplyr)   # load the dplyr library, will be useful later
 > **First of all**, create a new Markdown document. We use the `File -> New File -> Quarto Document..` dropdown option, and a menu will appear asking you for the document title, author, and preferred output type. You can select HTML, but you will need your assignment to be submitted in PDF; more on that later.
 >
 > Follow the practical below. You can describe what you are doing in normal text. See [here](https://quarto.org/docs/authoring/markdown-basics.html) for how to format normal text in Markdown documents
-> 
+>
 > Remember, when you want to write code in a markdown document you have to enclose it like this:
 
 ```{r class.source = "fold-show", echo = F}
 knitr::include_graphics("../img/codeChunk.png")
 ```
+
 > or you can insert it manually:
 
 ```{r class.source = "fold-show", echo = F}
 knitr::include_graphics("../img/codeChunk_visual.png")
 ```
 
-Within this module we will be working with data stored in so-called datasets. A dataset is a structured collection of data points that represent various measurements or observations, often organized in a tabular format with rows and columns. A dataset might contain information about different locations, such as neighborhoods or cities, with each row representing a place and each column detailing characteristics like population density, average income, or number of green parks. For example, a dataset could be compiled to study patterns in urban mobility, where the data includes the number of daily commuters, the distance they travel, and the mode of transport they use. Datasets provide the essential building blocks for statistical analysis; they enable exploring relationships, identifying patterns, and drawing conclusions about certatin phenomena. 
+Within this module we will be working with data stored in so-called datasets. A dataset is a structured collection of data points that represent various measurements or observations, often organized in a tabular format with rows and columns. A dataset might contain information about different locations, such as neighborhoods or cities, with each row representing a place and each column detailing characteristics like population density, average income, or number of green parks. For example, a dataset could be compiled to study patterns in urban mobility, where the data includes the number of daily commuters, the distance they travel, and the mode of transport they use. Datasets provide the essential building blocks for statistical analysis; they enable exploring relationships, identifying patterns, and drawing conclusions about certatin phenomena.
 
 Examples of everyday datasets:
 
@@ -288,20 +292,20 @@ Examples of everyday datasets:
 -   **Movie Dataset**: Each row represents a movie, with columns showing its title, genre, release year, director, and rating.
 -   **Weather Dataset**: Each row shows a day’s weather in a city, with columns for temperature, humidity, wind speed, and precipitation.
 
-Usually,  data is organized in
+Usually, data is organized in
 
-- **Columns** of data representing some trait or variable that we might be interested in. In general, we might wish to investigate the relationship between variables. 
-- **Rows** represent a single object on which the column traits are measured. 
+-   **Columns** of data representing some trait or variable that we might be interested in. In general, we might wish to investigate the relationship between variables.
+-   **Rows** represent a single object on which the column traits are measured.
 
-For example, in a grade book for recording students scores throughout the semester, their is one row for every student and columns for each assignment. A greenhouse experiment dataset will have a row for every plant and columns for treatment type and biomass. 
+For example, in a grade book for recording students scores throughout the semester, their is one row for every student and columns for each assignment. A greenhouse experiment dataset will have a row for every plant and columns for treatment type and biomass.
 
 ### Datasets in R
 
-In R, we want a way of storing data where it feels just as if we had an Excel Spreadsheet where each row represents an observation and each column represents some information about that observation. We will call this object a `data.frame`, an R represention of a data set. The easiest way to understand data frames is to create one. 
+In R, we want a way of storing data where it feels just as if we had an Excel Spreadsheet where each row represents an observation and each column represents some information about that observation. We will call this object a `data.frame`, an R represention of a data set. The easiest way to understand data frames is to create one.
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-**Task**: Copy the code below in your markdown. Create a `data.frame` that represents an instructor's grade book, where  each row is a student, and each column represents some sort of assessment.
-</div> 
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Task**: Copy the code below in your markdown. Create a `data.frame` that represents an instructor's grade book, where each row is a student, and each column represents some sort of assessment.
+:::
 
 ```{r, warning=FALSE, message=FALSE}
 Grades <- data.frame(
@@ -320,20 +324,19 @@ Grades          # show the output in the console. This works when knitting
 knitr::include_graphics("../img/runChunk.png")
 ```
 
-R allows two differnt was to access elements of the `data.frame`. First is a matrix-like notation for accessing particular values. 
+R allows two differnt was to access elements of the `data.frame`. First is a matrix-like notation for accessing particular values.
 
-  Format  |   Result
---------- | --------------------------------------
-`[a,b]`   |  Element in row `a` and column `b`
-`[a,]`    |  All of row `a`
-`[,b]`    |  All of column `b`
+| Format  | Result                            |
+|---------|-----------------------------------|
+| `[a,b]` | Element in row `a` and column `b` |
+| `[a,]`  | All of row `a`                    |
+| `[,b]`  | All of column `b`                 |
 
-Because the columns have meaning and we have given them column names, it is desirable to want to access an element by the name of the column as opposed to the column number. 
+Because the columns have meaning and we have given them column names, it is desirable to want to access an element by the name of the column as opposed to the column number.
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
 **Task**: Copy and Run:
-</div> 
+:::
 
 ```{r, warning=FALSE, message=FALSE}
 Grades[, 2]       # print out all of column 2 
@@ -344,55 +347,59 @@ Grades$Name       # The $-sign means to reference a column by its label
 
 From: https://raw.githubusercontent.com/dereksonderegger/570L/master/07_DataImport.Rmd
 
-Usually we won't type the data in by hand, but rather load the data from some package. Reading data from external sources is a necessary skill. 
+Usually we won't type the data in by hand, but rather load the data from some package. Reading data from external sources is a necessary skill.
 
-***Comma Separated Values* Data**
+***Comma Separated Values*** **Data**
 
 To consider how data might be stored, we first consider the simplest file format: the comma separated values file (`.csv`). In this file time, each of the “cells” of data are separated by a comma. For example, the data file storing scores for three students might be as follows:
 
-    Able, Dave, 98, 92, 94
-    Bowles, Jason, 85, 89, 91
-    Carr, Jasmine, 81, 96, 97
+```         
+Able, Dave, 98, 92, 94
+Bowles, Jason, 85, 89, 91
+Carr, Jasmine, 81, 96, 97
+```
 
 Typically when you open up such a file on a computer with MS Excel installed, Excel will open up the file assuming it is a spreadsheet and put each element in its own cell. However, you can also open the file using a more primitive program (say Notepad in Windows, TextEdit on a Mac) you'll see the raw form of the data.
 
-Having just the raw data without any sort of column header is problematic (which of the three exams was the final??). Ideally we would have column headers that store the name of the column.  
+Having just the raw data without any sort of column header is problematic (which of the three exams was the final??). Ideally we would have column headers that store the name of the column.
 
-    LastName, FirstName, Exam1, Exam2, FinalExam
-    Able, Dave, 98, 92, 94
-    Bowles, Jason, 85, 89, 91
-    Carr, Jasmine, 81, 96, 97
+```         
+LastName, FirstName, Exam1, Exam2, FinalExam
+Able, Dave, 98, 92, 94
+Bowles, Jason, 85, 89, 91
+Carr, Jasmine, 81, 96, 97
+```
 
 **Reading (`.csv`) files**
 
 To make R read in the data arranged in this format, we need to tell R three things:
 
-1. Where does the data live? Often this will be the name of a file on your computer, but the file could just as easily live on the internet (provided your computer has internet access).
+1.  Where does the data live? Often this will be the name of a file on your computer, but the file could just as easily live on the internet (provided your computer has internet access).
 
-2. Is the first row data or is it the column names? 
+2.  Is the first row data or is it the column names?
 
-3. What character separates the data? Some programs store data using tabs to distinguish between elements, some others use white space. R's mechanism for reading in data is flexible enough to allow you to specify what the separator is.
+3.  What character separates the data? Some programs store data using tabs to distinguish between elements, some others use white space. R's mechanism for reading in data is flexible enough to allow you to specify what the separator is.
 
 The primary function that we'll use to read data from a file and into R is the function `read.csv()`. This function has many optional arguments but the most commonly used ones are outlined in the table below.
 
-| Argument           | Default       | Description                                                                                                         |
-|--------------------|---------------|---------------------------------------------------------------------------------------------------------------------|
-| `file`             | Required      | A character string denoting the file location.                                                                     |
-| `header`           | `TRUE`        | Specifies whether the first line contains column headers.                                                          |
-| `sep`              | `","`         | Specifies the character that separates columns. For `read.csv()`, this is usually a comma.                         |
-| `skip`             | `0`           | The number of lines to skip before reading data; useful for files with descriptive text before the actual data.    |
-| `na.strings`       | `"NA"`        | Values that represent missing data; multiple values can be specified, e.g., `c("NA", "-9999")`.                    |
-| `quote`            | `"`           | Specifies the character used to quote character strings, typically `"` or `'`.                                     |
-| `stringsAsFactors` | `FALSE`       | Controls whether character strings are converted to factors; `FALSE` means they remain as character data.          |
-| `row.names`        | `NULL`        | Allows specifying a column as row names, or assigning `NULL` to use default indexing for rows.                    |
-| `colClasses`       | `NULL`        | Specifies the data type for each column to speed up reading for large files, e.g., `c("character", "numeric")`.    |
-| `encoding`         | `"unknown"`   | Sets the text encoding of the file, which can be useful for files with special or international characters.        |
- 
-Most of the time you just need to specify the file.                                             |
+| Argument           | Default     | Description                                                                                                     |
+|------------|------------|------------------------------------------------|
+| `file`             | Required    | A character string denoting the file location.                                                                  |
+| `header`           | `TRUE`      | Specifies whether the first line contains column headers.                                                       |
+| `sep`              | `","`       | Specifies the character that separates columns. For `read.csv()`, this is usually a comma.                      |
+| `skip`             | `0`         | The number of lines to skip before reading data; useful for files with descriptive text before the actual data. |
+| `na.strings`       | `"NA"`      | Values that represent missing data; multiple values can be specified, e.g., `c("NA", "-9999")`.                 |
+| `quote`            | `"`         | Specifies the character used to quote character strings, typically `"` or `'`.                                  |
+| `stringsAsFactors` | `FALSE`     | Controls whether character strings are converted to factors; `FALSE` means they remain as character data.       |
+| `row.names`        | `NULL`      | Allows specifying a column as row names, or assigning `NULL` to use default indexing for rows.                  |
+| `colClasses`       | `NULL`      | Specifies the data type for each column to speed up reading for large files, e.g., `c("character", "numeric")`. |
+| `encoding`         | `"unknown"` | Sets the text encoding of the file, which can be useful for files with special or international characters.     |
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-Task: Let's read in a dataset of terrorist attacks that have taken place in the UK: 
-</div>
+Most of the time you just need to specify the file. \|
+
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+Task: Let's read in a dataset of terrorist attacks that have taken place in the UK:
+:::
 
 ```{r, warning=FALSE, message=FALSE}
 attacks <- read.csv(file   = '../data/attacksUK.csv')  # where the data lives                                 
@@ -400,13 +407,14 @@ View(attacks)
 ```
 
 ## Practice: Descriptive Statistics
+
 ### Summarizing Data
 
 It is very important to be able to take a data set and produce summary statistics such as the mean and standard deviation of a column. For this sort of manipulation, we use the package `dplyr`. This package allows chaining together many common actions to form a particular task.
 
 The foundational operations to perform on a data set are:
 
-* Subsetting - Returns a  with only particular columns or rows
+-   Subsetting - Returns a with only particular columns or rows
 
     – `select` - Selecting a subset of columns by name or column number.
 
@@ -414,19 +422,17 @@ The foundational operations to perform on a data set are:
 
     – `slice` - Selecting a subset of rows by row number.
 
-* `arrange` - Re-ordering the rows of a data frame.
+-   `arrange` - Re-ordering the rows of a data frame.
 
-* `mutate` - Add a new column that is some function of other columns.
+-   `mutate` - Add a new column that is some function of other columns.
 
-* `summarise` - calculate some summary statistic of a column of data. This collapses a set of rows into a single row.
+-   `summarise` - calculate some summary statistic of a column of data. This collapses a set of rows into a single row.
 
-Each of these operations is a function in the package `dplyr`. These functions all have a similar calling syntax,:
-- The first argument is a data set;.
-- Subsequent arguments describe what to do with the input data frame and you can refer to the columns without using the `df$column` notation.
+Each of these operations is a function in the package `dplyr`. These functions all have a similar calling syntax,: - The first argument is a data set;. - Subsequent arguments describe what to do with the input data frame and you can refer to the columns without using the `df$column` notation.
 
 All of these functions will return a data set.
 
-The `dplyr` package also includes a function that "pipes" commands together.  The idea is that the `%>%` operator works by translating the command `a %>% f(b)` to the expression `f(a,b)`. This operator works on any function `f`. The beauty of this comes when you have a suite of functions that takes input arguments of the same type as their output. For example if we wanted to start with `x`, and first apply function `f()`, then `g()`, and then `h()`, the usual R command would be `h(g(f(x)))` which is hard to read because you have to start reading at the innermost set of parentheses. Using the pipe command `%>%`, this sequence of operations becomes `x %>% f() %>% g() %>% h()`. For example:
+The `dplyr` package also includes a function that "pipes" commands together. The idea is that the `%>%` operator works by translating the command `a %>% f(b)` to the expression `f(a,b)`. This operator works on any function `f`. The beauty of this comes when you have a suite of functions that takes input arguments of the same type as their output. For example if we wanted to start with `x`, and first apply function `f()`, then `g()`, and then `h()`, the usual R command would be `h(g(f(x)))` which is hard to read because you have to start reading at the innermost set of parentheses. Using the pipe command `%>%`, this sequence of operations becomes `x %>% f() %>% g() %>% h()`. For example:
 
 ```{r, warning=FALSE, message=FALSE}
 Grades # Recall the Grades data 
@@ -457,10 +463,9 @@ Grades %>%
              Exam.1.sd   = sd(   Exam.1   ) )
 ```
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
 **Task:** Write the code above in your markdown file and run it. Do not to copy it this time.
-</div>
-
+:::
 
 Let's go back to the terrorist attacks. There are attacks perpetrated by several different groups. Each record is a single attack and contains information about who perpetrated the attack, what year, how many were killed and how many were wounded. You can get a glimpse of the dataframe with the function head
 
@@ -476,31 +481,34 @@ attacks %>%
   summarise( Mean = mean(attacks$nrWound), 
              Std.Dev = sd(attacks$nrWound))
 ```
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
+
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
 **Task:** Write the code above in your markdown file and run it. Try out another categorical variable instead of `group` (e.g. `year`) and `nrKilled` instead of `nrWound`.
-</div>
+:::
 
 Let's now move to another dataset to address a research question. For illustration purposes, we will use the **Family Resources Survey (FRS)**. The FRS is an annual survey conducted by the UK government that collects detailed information about the income, living conditions, and resources of private households across the United Kingdom. Managed by the Department for Work and Pensions (DWP), the FRS provides data that is essential for understanding the economic and social conditions of households and informing public policy.
 
 Consider questions such as:
 
-- How many respondents (persons) are there in the 2016-17 FRS?
-- How many variables (population attributes) are there?
-- What types of variables are present in the FRS?
-- What is the most detailed geography available in the FRS?
+-   How many respondents (persons) are there in the 2016-17 FRS?
+-   How many variables (population attributes) are there?
+-   What types of variables are present in the FRS?
+-   What is the most detailed geography available in the FRS?
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
 **Task**: To answer these questions, load and inspect the dataset.
-</div>
+:::
 
 ```{r, warning=FALSE, message=FALSE}
 # the FRS dataset should be already loaded, otherwise
-frs_data <- read.csv("../data/FamilyResourceSurvey/FRS16-17.csv") 
+frs_data <- read.csv("../data/FamilyResourceSurvey/FRS16-17_labels.csv") 
 
 # Display basic structure 
 glimpse(frs_data)
 ```
+
 and summary:
+
 ```{r, warning=FALSE, message=FALSE}
 summary(frs_data)
 ```
@@ -514,27 +522,27 @@ In the FRS data structure, each row represents a person, but:
 
 Below is an example dataset structure:
 
-| household | family | person | region               | age_group | sex    | marital_status            | rel_to_hrp                         |
-|-----------|--------|--------|----------------------|-----------|--------|----------------------------|------------------------------------|
-| 1         | 1      | 1      | London               | 40-44     | Female | Married/Civil partnership  | Spouse                             |
-| 1         | 1      | 2      | London               | 40-44     | Male   | Married/Civil partnership  | Household Representative           |
-| 1         | 1      | 3      | London               | 5-10      | Male   | Single                     | Son/daughter (incl. adopted)       |
-| 1         | 1      | 4      | London               | 5-10      | Female | Single                     | Son/daughter (incl. adopted)       |
-| 1         | 1      | 5      | London               | 16-19     | Male   | Single                     | Step-son/daughter                 |
-| 2         | 1      | 1      | Scotland             | 35-39     | Male   | Single                     | Household Representative           |
-| 3         | 1      | 1      | Yorks and the Humber | 35-39     | Female | Married/Civil partnership  | Household Representative           |
-| 3         | 1      | 2      | Yorks and the Humber | 35-39     | Male   | Married/Civil partnership  | Spouse                             |
-| 3         | 1      | 3      | Yorks and the Humber | 5-10      | Male   | Single                     | Step-son/daughter                 |
-| 4         | 1      | 1      | Wales                | 0-4       | Male   | Single                     | Son/daughter (incl. adopted)       |
-| 4         | 1      | 2      | Wales                | 60-64     | Male   | Married/Civil partnership  | Household Representative           |
-| 4         | 1      | 3      | Wales                | 55-59     | Female | Married/Civil partnership  | Spouse                             |
-| 4         | 2      | 3      | Wales                | 30-34     | Female | Single                     | Son/daughter (incl. adopted)       |
+| household | family | person | region               | age_group | sex    | marital_status            | rel_to_hrp                   |
+|---------|---------|---------|---------|---------|---------|---------|-----------|
+| 1         | 1      | 1      | London               | 40-44     | Female | Married/Civil partnership | Spouse                       |
+| 1         | 1      | 2      | London               | 40-44     | Male   | Married/Civil partnership | Household Representative     |
+| 1         | 1      | 3      | London               | 5-10      | Male   | Single                    | Son/daughter (incl. adopted) |
+| 1         | 1      | 4      | London               | 5-10      | Female | Single                    | Son/daughter (incl. adopted) |
+| 1         | 1      | 5      | London               | 16-19     | Male   | Single                    | Step-son/daughter            |
+| 2         | 1      | 1      | Scotland             | 35-39     | Male   | Single                    | Household Representative     |
+| 3         | 1      | 1      | Yorks and the Humber | 35-39     | Female | Married/Civil partnership | Household Representative     |
+| 3         | 1      | 2      | Yorks and the Humber | 35-39     | Male   | Married/Civil partnership | Spouse                       |
+| 3         | 1      | 3      | Yorks and the Humber | 5-10      | Male   | Single                    | Step-son/daughter            |
+| 4         | 1      | 1      | Wales                | 0-4       | Male   | Single                    | Son/daughter (incl. adopted) |
+| 4         | 1      | 2      | Wales                | 60-64     | Male   | Married/Civil partnership | Household Representative     |
+| 4         | 1      | 3      | Wales                | 55-59     | Female | Married/Civil partnership | Spouse                       |
+| 4         | 2      | 3      | Wales                | 30-34     | Female | Single                    | Son/daughter (incl. adopted) |
 
 The first five people in the FRS all belong to the same household (household 1); they also all belong to the same family. This family comprises a married middle-aged couple plus their three children, one of whom is a stepson.
 
 The second household (household 2) comprises only one person – a single middle-aged male.The third household comprises another married couple, this time with two children.
 
-Superficially the fourth household looks similar to households 1 and 2: a married couple plus their daughter. The difference is that this particular married couple is nearing retirement age, and their daughter is middle-aged. Consequently, despite being a child of the married couple, the middle-aged daughter is treated as a separate ‘family’ (family 2 in the household). This is because the FRS (and Census) define a ‘family’ as a couple plus any ‘dependent’ children. A dependent child is defined as a child who is either` aged 0-15 or aged 16-19, unmarried and in full-time education. All children aged 16-19 who are married or no longer in full-time education are regarded as ‘independent’ adults who form their own family unit, as are all children aged 20+.
+Superficially the fourth household looks similar to households 1 and 2: a married couple plus their daughter. The difference is that this particular married couple is nearing retirement age, and their daughter is middle-aged. Consequently, despite being a child of the married couple, the middle-aged daughter is treated as a separate ‘family’ (family 2 in the household). This is because the FRS (and Census) define a ‘family’ as a couple plus any ‘dependent’ children. A dependent child is defined as a child who is either\` aged 0-15 or aged 16-19, unmarried and in full-time education. All children aged 16-19 who are married or no longer in full-time education are regarded as ‘independent’ adults who form their own family unit, as are all children aged 20+.
 
 The inclusion of all persons in a household allows us more flexibility in the types of research question we can answer. For example, we could explore how the likelihood of a woman being in paid employment `WorkStatus` is influenced by the age of the youngest child still living in her family (if any) `fam_youngest`.
 
@@ -546,48 +554,52 @@ Before starting your analysis, it is critical to know the type of scale used to 
 
 In the FRS each person’s annual income is recorded, both gross (pre-tax) and net (post-tax). This income includes all income sources, including earnings, profits, investment returns, state benefits, occupational pensions etc. As it is possible to make a loss on some of these activities, it is also possible (although unusual) for someone’s gross or net annual income in a given year to be negative (representing an overall loss).
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
 **Task**: Load the FRS dataset into your R environment, if it’s not already loaded, and inspect the data.
-</div>
-    
+:::
+
 ```{r, warning=FALSE, message=FALSE}
 # Load the dataset (replace 'frs_data.csv' with the actual file path)
-frs_data <- read.csv("../data/FamilyResourceSurvey/FRS16-17.csv") 
-```    
+frs_data <- read.csv("../data/FamilyResourceSurvey/FRS16-17_labels.csv") 
+```
+
 Open the dataset in RStudio’s **Data Viewer** to explore its structure, including the `income_gross` and `income_net` variables.
-    
+
 ```{r, warning=FALSE, message=FALSE}
  # Open the data in the RStudio Viewer
  View(frs_data)
-```   
- 
- in the **Data Viewer** tab, scroll horizontally to locate the `income_gross` and `income_net` columns. If columns are listed alphabetically, they will appear near other attributes that start with "income."
+```
+
+in the **Data Viewer** tab, scroll horizontally to locate the `income_gross` and `income_net` columns. If columns are listed alphabetically, they will appear near other attributes that start with "income."
 
 You should notice two things:
 
- - Incomes are recorded to the nearest £, NOT in income bands.
- - Dependent children almost all have a recorded income of £0.
+-   Incomes are recorded to the nearest £, NOT in income bands.
+-   Dependent children almost all have a recorded income of £0.
 
 This second observation highlights the somewhat loose wording of our question above (*What sorts of people have high (or low) incomes?*). To avoid reaching the somewhat banal conclusion that those with the lowest of all incomes are almost all children, we should re-frame the question more precisely as *What sorts of people (excluding dependent children) have low incomes?*
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-**Task**:   Determine the Scale of the Outcome Variable.
-</div>
-**
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Task**: Determine the Scale of the Outcome Variable.
+:::
+
+\*\*
 
 ```{r, warning=FALSE, message=FALSE}
 # Summarize income variables
 summary(frs_data$income_gross)
 ```
+
 ```{r, warning=FALSE, message=FALSE}
 # Summarize income variables
 summary(frs_data$income_net)
 ```
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-**Task**:   Exclude Dependent Children.
-</div>
-**
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Task**: Exclude Dependent Children.
+:::
+
+\*\*
 
 You need to select all cases (persons) that are independent, that is where the variable dependent has value 2 (1 = dependent, 2 = independent).
 
@@ -596,10 +608,9 @@ You need to select all cases (persons) that are independent, that is where the v
 frs_independent <- frs_data %>% filter(dependent == "2")
 ```
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-**Task**:   Create a basic histogram (a visualisation lecture is scheduled later on).
-</div>
-
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Task**: Create a basic histogram (a visualisation lecture is scheduled later on).
+:::
 
 The income variables in the FRS are all scale variables so a good starting point is to examine its distribution looking at a histogram of `income_gross`.
 
@@ -619,10 +630,11 @@ library(ggplot2)
 
 You should see the histogram below. It reveals that the income distribution is very skewed with few people earning high salaries and the majority earning just over or less 35,000 annually.
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-**Task**:   Adopt a regrouping strategy.
-</div>
-**
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Task**: Adopt a regrouping strategy.
+:::
+
+\*\*
 
 You can also cross-tabulate gross (or net) income with any of the other variables in the FRS to your heart’s content – or can you?
 
@@ -632,12 +644,12 @@ But which strategy to use? Equal intervals, percentiles or ‘ad hoc’. Here I 
 
 Define thresholds for income categories:
 
-- Low-income threshold: £________
-- High-income threshold: £_______ 
+-   Low-income threshold: £\_\_\_\_\_\_\_\_
+-   High-income threshold: £\_\_\_\_\_\_\_
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-**Task**:   Create a New Variable Based on Regrouping of Original Variable.
-</div>
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Task**: Create a New Variable Based on Regrouping of Original Variable.
+:::
 
 Recode `income_gross` into categories based on the chosen thresholds.
 
@@ -669,9 +681,9 @@ Explanation of the code
     -   `income_gross >= HIGH_THRESHOLD ~ "High"`: If `income_gross` is greater than or equal to `HIGH_THRESHOLD`, `income_category` will be labeled "High."
     -   `TRUE ~ "Middle"`: Any values not meeting the previous conditions are labeled "Middle."
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-**Task**:  Add some Metadata.
-</div>
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Task**: Add some Metadata.
+:::
 
 Define metadata for the new variable by labeling income categories.
 
@@ -682,14 +694,14 @@ frs_independent$income_category <- factor(frs_independent$income_category,
  						levels = c("Low", "Middle", "High"), labels = c("<= £10,000", "£10,001 - £49,999", ">= £50,000"))
 ```
 
-<div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
-**Task**:  Check your work.
-</div>
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Task**: Check your work.
+:::
 
 Examine the frequency distribution of the variable you have just created. Both variables should have the same number of missing cases, unless:
 
- - Missing cases in the old variable have been intentionally converted into valid cases in the new variable.
- - You forgot to allocate a new value to one of the old variable categories, in which case the new variable will have more missing cases than the old variable.
+-   Missing cases in the old variable have been intentionally converted into valid cases in the new variable.
+-   You forgot to allocate a new value to one of the old variable categories, in which case the new variable will have more missing cases than the old variable.
 
 ```{r, warning=FALSE, message=FALSE}
 # Frequency distribution of income categories
@@ -702,6 +714,7 @@ After preparing the data, use cross-tabulations to compare income levels across 
 # Cross-tabulate income category by age group, nationality, etc.
 table(frs_independent$income_category, frs_independent$age_group)
 ```
+
 Explore income distribution across different regions.
 
 ```{r, warning=FALSE, message=FALSE}
@@ -713,4 +726,3 @@ table(frs_independent$income_category, frs_independent$region)
 
 -   Place the income variable in the columns.
 -   Add multiple variables in the rows to create simultaneous cross-tabulations.
-
