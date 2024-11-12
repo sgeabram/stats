@@ -601,11 +601,11 @@ summary(frs_data$income_net)
 
 \*\*
 
-You need to select all cases (persons) that are independent, that is where the variable dependent has value 2 (1 = dependent, 2 = independent).
+You need to select all cases (persons) that are independent, that is where the variable `dependent` has values different from `!=` "Dependent" or equal `==` "Independent".
 
 ```{r, warning=FALSE, message=FALSE}
 # Filter to include only independent persons
-frs_independent <- frs_data %>% filter(dependent == "2")
+frs_independent <- frs_data %>% filter(dependent != "Dependent")
 ```
 
 ::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
