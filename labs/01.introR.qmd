@@ -634,7 +634,6 @@ You should see the histogram below. It reveals that the income distribution is v
 **Task**: Adopt a regrouping strategy.
 :::
 
-\*\*
 
 You can also cross-tabulate gross (or net) income with any of the other variables in the FRS to your heart’s content – or can you?
 
