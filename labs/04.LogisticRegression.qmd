@@ -1,0 +1,219 @@
+---
+title: "LogisticRegression"
+author: "Zi Ye"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+**Learning objectives**
+
+An understanding of, and ability to:
+
+-   Estimate and interpret a logistic regression model
+
+-   Assess the model fit
+
+The application context of a logistic regression model is when the dependent variable under investigation is a binary variable. Usually, a value of 1 for this dependent variable means the occurrence of an event; and, 0 otherwise. For example, the dependent variable for this practical is whether a person is a long-distance commuter i.e. 1, and 0 otherwise.
+
+In this week’s practical, we are going to apply logistic regression analysis in an attempt to answer the following research question:
+
+<div>
+
+***RESEARCH QUESTION: Who is willing to commute long distances?***
+
+</div>
+
+The practical is split into two main parts. The first focuses on implementing a binary logistic regression model with SPSS. The second part focuses the interpretation of the resulting estimates.
+
+## Preparing the input variables
+
+Prepare the data for implementing a logistic regression model. The data set used in this practical is the “SAR.csv”.
+
+```{r, warning=FALSE}
+library(tidyverse)
+```
+
+```{r}
+#sar <- read.csv("../data/FamilyResourceSurvey/FRS16-17.csv")
+sar <- haven::read_sav("../../Week 11/SAR.sav")
+```
+
+```{r}
+glimpse(sar)
+```
+
+```{r}
+summary(sar)
+```
+
+The outcome variable is a person’s commuting distance captured by the variable “work_distance”.
+
+```{r}
+table(sar$work_distance)
+```
+
+There are a variety of categories in the variable, however, we are only interested in commuting distance and therefore in people reporting their commuting distance. Thus, we will explore the numeric codes of the variable ranging from 1 to 8.
+
+| Code for Work_distance | Cateogories                                  |
+|------------------------|----------------------------------------------|
+| 1                      | Less than 2 km                               |
+| 2                      | 2 to \<5 km                                  |
+| 3                      | 5 to \<10 km                                 |
+| 4                      | 10 to \<20 km                                |
+| 5                      | 20 to \<40 km                                |
+| 6                      | 40 to \<60 km                                |
+| 7                      | 60km or more                                 |
+| 8                      | At home                                      |
+| 9                      | No fixed place                               |
+| 10                     | Work outside England and Wales but within UK |
+| 11                     | Work outside UK                              |
+| 12                     | Works at offshore installation (within UK)   |
+
+As we are also interested in exploring whether people with different socio-economic statuses (or occupations) tend to be associated with varying probabilities of commuting over long distances, we further filter or select cases.
+
+```{r}
+table(sar$nssec)
+```
+
+Using `nssec`, we select people who reported an occupation, and delete cases with numeric codes from 9 to 12, who are *unemployed*, *full-time students*, *children* and *not classifiable*.
+
+| Code for nssec | Category labels                               |
+|----------------|-----------------------------------------------|
+| 1              | Large employers and higher managers           |
+| 2              | Higher professional occupations               |
+| 3              | Lower managerial and professional occupations |
+| 4              | Intermediate occupations                      |
+| 5              | Small employers and own account workers       |
+| 6              | Lower supervisory and technical occupations   |
+| 7              | Semi-routine occupations                      |
+| 8              | Routine occupations                           |
+| 9              | Never worked or long-term employed            |
+| 10             | Full-time student                             |
+| 11             | Not classificable                             |
+| 12             | Child aged 0-15                               |
+
+Now, similar to next week, we use the `filter()` to prepare our dataframe today.
+
+```{r}
+sar_df <- sar %>% filter(work_distance<=8 & nssec <=8 )
+```
+
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Q1.** Summarise the frequencies of the two variables “work_distance” and “nssec” with the new data.
+:::
+
+**Recode the “work_distance” variable into a binary dependent variable**
+
+A simple way to create a binary dependent variable representing long-distance commuting is to use the mutate() function as discussed in last week's practical session. Before creating the binary variables from the “work_distance” variable, we need to define *what counts as a long-distance commuting move*. Such definition can vary. Here we define a long-distance commuting move as any commuting move over a distance above 60km (the category of “60km or more”).
+
+```{r}
+sar_df <- sar_df %>% mutate(
+  New_work_distance = if_else(work_distance >6, 1,0))
+
+```
+
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Q2.** Check the new `sar_df` dataframe with new column named `New_work_distance` by using the codes you have learnt.
+:::
+
+**Prepare your "nssec" variable before the regression model**
+
+The `nssec` is a categorical variable. Therefore, as we've learnt last week, before adding the categorical variables into the regression model, we need first make it a factor and then identify the reference category.
+
+We are interested in whether people with occupations being "Small-employers and Own account workers” are associated with a lower probability of commuting over long distances when comparing to people in other occupations.
+
+```{r}
+sar_df$nssec <- relevel(as.factor(sar_df$nssec), ref = "5")
+```
+
+### **Implementing a logistic regression model**
+
+The binary dependent variable is long-distance commuting, variable name `New_work_distance`.
+
+The independent variables are gender and socio-economic status.
+
+For gender, we use male as the basline.
+
+```{r}
+sar_df$sex <- relevel(as.factor(sar_df$sex),ref="1")
+```
+
+For socio-economic status, we use code 5 (Small employers and Own account workers) as the baseline category to explore whether people work as independent employers show lower probability of commuting longer than 60km compared with other occupations.
+
+```{r}
+#create the model
+m.glm = glm(New_work_distance~sex + nssec, 
+            data = sar_df, 
+            family= "binomial")
+# inspect the results
+summary(m.glm) 
+```
+
+```{r}
+# odds ratios
+exp(coef(m.glm)) 
+```
+
+```{r}
+# confidence intervals
+exp(confint(m.glm, level = 0.95)) 
+```
+
+Q3. If we want to explore whether people with occupation being "Large employers and higher managers", "Higher professional occupations" and "Routine occupations" are associated with higher probability of commuting over long distance when comparing to people in other occupation, how will we prepare the input independent variables and what will be the specified regression model?
+
+Hint: use mutate() to create a new column, set the value of "Large employers and higher managers", "Higher professional occupations" and "Routine occupations" as original, while the rest as "Other occupations" ().
+
+```{r}
+sar_df <- sar_df %>% mutate(New_nssec = if_else(!nssec %in% c(1,2,8), "0" ,nssec))
+```
+
+Use "Other occupations" (code: 0) as the reference category by `relevel(as.factor())` and then create the regression model: `glm(New_work_distance~sex + New_nssec, data = sar_df, family= "binomial")`
+
+### **Model fit**
+
+Relating back to this week’s lecture notes, what is the Pseudo R^2^ of the fitted logistic model (from the Model Summary table below)?
+
+```{r}
+if(!require("pscl"))
+  install.packages("pscl")
+library(pscl)
+
+# Pseudo R-squared
+tidy(pR2(m.glm))
+
+AIC(m.glm)
+```
+
+### **Interpreting estimated regression coefficients**
+
+-   The interpretation of coefficients (B) and odds ratios (Exp(B)) for the independent variables differs from that in a linear regression setting.
+
+-   Interpreting the regression coefficients.
+
+o   For the variable **Sex**, a negative sign and the odds ratio estimate indicate that being female decreases the odds of commuting over long distances by a factor of 0.462, holding all other variables constant. Put it differently, the odds of commuting over long distances for females are 53.8% (i.e., 1 – 0.462, presented as percentages) smaller than that for males, holding all other variables constant.
+
+o   For variable “**nssec=Higher professional occupations**”, a positive sign and the odds ratio estimate indicate that being employed in a higher professional occupation increases the odds of commuting over long distances by a factor of 1.873 comparing to being employed in other occupations (the baseline categories), holding all other variables constant (the Sex variable).
+
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Q4.** Interpret the regression coefficients (i.e. Exp(B)) of variables “nssec=Large employers and higher managers” and “nssec=Routine occupations”.
+:::
+
+### **Statistical significance of regression coefficients or covariate effects**
+
+Similar to the statistical inference in a linear regression model context, p-values of regression coefficients are used to assess significances of coefficients; for instance, by comparing p-values to the conventional level of significance of 0.05:
+
+·       If the p-value of a coefficient is smaller than 0.05, the coefficient is statistically significant. In this case, you can say that the relationship between an independent variable and the outcome variable is *statistically* significant.
+
+·       If the p-value of a coefficient is larger than 0.05, the coefficient is statistically insignificant. In this case, you can say or conclude that there is no statistically significant association or relationship between an independent variable and the outcome variable.
+
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Q5.** Could you identify significant factors of commuting over long distances?
+:::
+
+## **Extension activities**
+
+The extension activities are designed to get yourself prepared for the Assignment 2 in progress. For this week, try whether you can:
+
+-   Select a regression strategy and explain why a linear or logit model is appropriate
+
+-   Perform one or a series of regression models, including different combinations of your chosen independent variables to explain and/or predict your dependent variable
