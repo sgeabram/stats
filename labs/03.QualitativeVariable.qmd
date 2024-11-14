@@ -41,7 +41,7 @@ Recall in Week 7, you get familiar to R by using the Family Resource Survey data
 
 ### Data overview
 
-```{r,results='hide',warning=FALSE}
+```{r,results='hide',message=FALSE}
 # Load necessary libraries 
 library(ggplot2) 
 library(dplyr) 
@@ -49,7 +49,7 @@ library(dplyr)
 
 #or use tidyverse which includes ggplot2, dplyr and other foundamental libraries, remember you need first install the package if you haven't by using install.packages("tidyverse")
 
-```{r,results='hide',warning=FALSE}
+```{r,results='hide',message=FALSE}
 library(tidyverse)
 ```
 
@@ -136,7 +136,7 @@ If you see a warning message of Chi-squared approximation may be incorrect. This
 ```{r}
 # Install the 'vcd' package if not installed 
 if(!require("vcd"))   
-install.packages("vcd") 
+install.packages("vcd", repos = "https://cran.r-project.org")
 library(vcd)  
 
 # Calculate Cramér's V 
@@ -151,19 +151,14 @@ Use the codes of Chi-test and Cramer's V to answer this question by completing T
 
 **Table 1 Person-level correlations with health status**
 
-+-----------------+------------------+-------------------------------+--------------------------------+
-| **Covariates**  |                  | **Correlation Coefficient**   | **Statistical Significance**   |
-+-----------------+------------------+-------------------------------+--------------------------------+
-|                 |                  | *Cramer’s V*                  | *p-value*                      |
-+-----------------+------------------+-------------------------------+--------------------------------+
-| *health*        | *age_group*      |                               |                                |
-+-----------------+------------------+-------------------------------+--------------------------------+
-| *Health*        | *highest_qual*   |                               |                                |
-+-----------------+------------------+-------------------------------+--------------------------------+
-| *health*        | *marital_status* |                               |                                |
-+-----------------+------------------+-------------------------------+--------------------------------+
-| *Health*        | *nssec*          |                               |                                |
-+-----------------+------------------+-------------------------------+--------------------------------+
+|                |                  |                             |                              |
+|------------------|------------------|-------------------|-------------------|
+| **Covariates** |                  | **Correlation Coefficient** | **Statistical Significance** |
+|                |                  | *Cramer’s V*                | *p-value*                    |
+| *health*       | *age_group*      |                             |                              |
+| *Health*       | *highest_qual*   |                             |                              |
+| *health*       | *marital_status* |                             |                              |
+| *Health*       | *nssec*          |                             |                              |
 
 ## **Implementing a linear regression model with a qualitative independent variable**
 
@@ -173,9 +168,7 @@ Use the codes of Chi-test and Cramer's V to answer this question by completing T
 
 The practical is split into two main parts. The first focuses on implementing a linear regression model with a qualitative independent variable. **Note that** you need first to set the reference category (baseline) as the outcomes of the model reflects the **differences** between categories with the baseline. The second part focuses prediction based the estimated linear regression model.
 
-First we load the UK district-level census dataset. As the
-
-**`Change the dir later`**
+First we load the UK district-level census dataset.
 
 ```{r warning=FALSE}
 # load data
@@ -309,31 +302,19 @@ Last but not least, the **Measure of Model Fit**. The model output suggests the 
 
 Now, complete the following table.
 
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| Region names             | Higher or lower than London | Whether the difference is statistically significant (Yes or No) |
-+:========================:+:===========================:+:===============================================================:+
-| East Midlands            |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| East of England          |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| North East               |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| North West               |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| South East               |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| South West               |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| West Midlands            |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
+|       Region names       | Higher or lower than London | Whether the difference is statistically significant (Yes or No) |
+|:----------------:|:----------------:|:---------------------------------:|
+|      East Midlands       |                             |                                                                 |
+|     East of England      |                             |                                                                 |
+|        North East        |                             |                                                                 |
+|        North West        |                             |                                                                 |
+|        South East        |                             |                                                                 |
+|        South West        |                             |                                                                 |
+|      West Midlands       |                             |                                                                 |
 | Yorkshire and The Humber |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| Wales                    |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| Scotland                 |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
-| Northern Ireland         |                             |                                                                 |
-+--------------------------+-----------------------------+-----------------------------------------------------------------+
+|          Wales           |                             |                                                                 |
+|         Scotland         |                             |                                                                 |
+|     Northern Ireland     |                             |                                                                 |
 
 ### **Change the baseline category**
 
