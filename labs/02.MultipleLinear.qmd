@@ -5,24 +5,23 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-In this week’s practical we are going to review how to calculate and visualise correlation coefficients between variables. This practical is split into two parts. The first part focuses on measuring the correlation between and visualising the relationship between **continuous variables**. The second part goes through the implementation of a Linear Regression Model, again between continuous variables.
+In this week’s practical, we will review how to calculate and visualise correlation coefficients between variables. This practical is split into two parts. The first part focuses on measuring the correlation between and visualising the relationship between **continuous variables**. The second part goes through the implementation of a Linear Regression Model, again between continuous variables.
 
 Before getting into it, have a look at this [resource](https://mlu-explain.github.io/linear-regression/), it really helps understand how regression models work.
 
-Learning Objectives:
+**Learning Objectives:**
 
 -   Visualise the association between two continuous variables using a scatterplot.
 -   Measure the strength of the association between two variables by calculating their correlation coefficient.
 -   Build a formal regression model.
 -   Understand how to estimate and interpret a multiple linear regression model.
 
-
+**Notes:**
 *Note for the practical: copy/edit/document the code in your own `.qmd` file. The code is supposed to be run as if the script was placed in the course folder or in the folder `labs`.*
 
-*Note on file paths*:
-When calling the `read.csv` function, the path will vary depending on the location of the script it is being executed or your working directory (WD):
+*Note on file paths*: When calling the `read.csv` function, the path will vary depending on the location of the script it is being executed or your working directory (WD):
 
-1.  **If the script or your WD is in a sub-folder** (e.g., `labs`), use `"../data/Census2021/EW_DistrictPercentages.csv"`.  The `..` tells R to go one level up to the main directory (`stats/`) and then access the `data/` folder.   **Example**: `read.csv("../data/Census2021/EW_DistrictPercentages.csv")`.
+1.  **If the script or your WD is in a sub-folder** (e.g., `labs`), use `"../data/Census2021/EW_DistrictPercentages.csv"`. The `..` tells R to go one level up to the main directory (`stats/`) and then access the `data/` folder. **Example**: `read.csv("../data/Census2021/EW_DistrictPercentages.csv")`.
 2.  **If the script is in the main directory** (e.g. inside `stats/`), you can access the data directly using `"data/Census2021/EW_DistrictPercentages.csv"`. Here, no `..` is necessary as the `data/` folder is directly accessible from the working directory. **Example**: `read.csv("data/Census2021/EW_DistrictPercentages.csv")`
 
 ## Part I. Correlation
@@ -48,7 +47,7 @@ We’re using a (district/ward/etc.)-level census dataset that includes:
 -   \% of male population (`pct_Males`).
 -   \% of population in a higher managerial/professional occupation (`pct_Higher_manager_prof`).
 
-Let's first get some descriptive statistics that help identify general trends and distributions in the data.
+First, Let's get some descriptive statistics that help identify general trends and distributions in the data.
 
 ```{r}
 # Summary statistics
@@ -58,10 +57,10 @@ summary_data <- census %>%
 summary_data
 ```
 
-**Q1**. Complete the table by specifying the type (continuous or categorical) and reporting the mean and standard deviation for each variable.
+**Q1**. Complete the table below by specifying each variable type (continuous or categorical) and reporting its mean and standard deviation.
 
 | Variable Name           | Type (Continuous or Categorical) | Mean | Standard Deviation |
-|-----------------|-----------------------|-----------------|-----------------|
+|-----------------|---------------------|-----------------|-----------------|
 | pct_Very_bad_health     |                                  |      |                    |
 | pct_No_qualifications   |                                  |      |                    |
 | pct_Males               |                                  |      |                    |
@@ -69,7 +68,7 @@ summary_data
 
 ### Simple visualisation for continuous data
 
-The relationship between two continuous variables may be visualised graphically using a scatter-plot. Using the chosen census datasets, visualise the association between the % of population with bad health (`pct_Very_bad_health`) and each of the following:
+You can visualise the relationship between two continuous variables using a scatter plot. Using the chosen census datasets, visualise the association between the % of population with bad health (`pct_Very_bad_health`) and each of the following:
 
 -   the % of population with no qualifications (`pct_No_qualifications`);
 -   the % of population aged 65 to 84 (`pct_Age_65_to_84`);
@@ -81,7 +80,7 @@ The relationship between two continuous variables may be visualised graphically 
 variables <- c("pct_No_qualifications", "pct_Age_65_to_84", "pct_Married_couple", "pct_Higher_manager_prof")
 
 # Loop to create scatterplots and calculate correlations 
-
+# x and y variables for each scatter plot,
 for (var in variables) { 
   # Scatterplot 
   ggplot(census, aes_string(x = var, y = "pct_Very_bad_health")) +
@@ -112,7 +111,7 @@ Rather than relying upon an impressionistic view of the strength of the associat
 
 **Different Calculation Methods**: Pearson’s correlation assumes linear relationships and is suitable for symmetrically distributed (normally distributed) variables, measuring the strength of the linear relationship. Spearman’s rank correlation, however, works on ranked data, so it’s more suitable for skewed data or variables with non-linear relationships, measuring the strength and direction of a monotonic relationship.
 
-If you’re calculating the correlation for a single pair of variables, pick the method that best matches the data distribution for that specific pair:
+When calculating correlation for a single pair of variables, select the method that best fits their data distribution:
 
 ```         
 -   Use **Pearson’s** if both variables are symmetrically distributed.
@@ -183,9 +182,9 @@ pearson_test
 
 Look at https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor.test for details about the function. But in general, when calculating the correlation between two variables, a **p-value** accompanies the correlation coefficient to indicate the statistical significance of the observed association. This p-value tests the null hypothesis that there is no association between the two variables (i.e., that the correlation is zero).
 
-In interpreting p-values, certain thresholds denote different levels of confidence. A p-value less than 0.05 is generally considered statistically significant at the 95% confidence level, suggesting that we can be 95% confident there is an association between the variables in the broader population. When the p-value is below 0.01, the result is significant at the 99% confidence level, meaning we have even greater confidence (99%) that an association exists. Sometimes, on reasearch papers or tables significance levels are denoted with asterisks: one asterisk (`*`) typically indicates significance at the 95% level (p \< 0.05), while two asterisks (`**`) denote significance at the 99% level (p \< 0.01).
+When interpreting p-values, certain thresholds denote different levels of confidence. A p-value less than 0.05 is generally considered statistically significant at the 95% confidence level, suggesting that we can be 95% confident there is an association between the variables in the broader population. When the p-value is below 0.01, the result is significant at the 99% confidence level, meaning we have even greater confidence (99%) that an association exists. Sometimes, on research papers or tables significance levels are denoted with asterisks: one asterisk (`*`) typically indicates significance at the 95% level (p < 0.05), two asterisks (`**`) significance at the 99% level (p < 0.01),  three asterisks (`***`) significance at the 99.99% level (p < 0.01).
 
-Typically, p-values are reported under labels such as "Sig (2-tailed)," where "2-tailed" refers to the fact that the test considers both directions (positive and negative correlations). Reporting the exact p-value (e.g., p = 0.001) is more informative than using thresholds alone, as it gives a clearer picture of how strongly the data contradicts the null hypothesis of no association.
+Typically, p-values are reported under labels such as "Sig (2-tailed)," where "2-tailed" refers to the fact that the test considers both directions (positive and negative correlations). Reporting the exact p-value (e.g., p = 0.002) is more informative than using thresholds alone, as it gives a clearer picture of how strongly the data contradicts the null hypothesis of no association.
 
 **In a nutshell, lower p-values suggest a stronger statistical basis for believing that an observed correlation is not due to random chance. A statistically significant p-value reinforces confidence that an association likely exists in the wider population, though it does not imply causation.**
 
@@ -223,11 +222,18 @@ and the data (if not loaded):
 census <- read.csv("../data/Census2021/EW_DistrictPercentages.csv")
 ```
 
-Regression models are the standard method for constructing predictive and explanatory models. They tell us how changes in one variable (the target variable or independent variable, $y$) are *associated with* changes in explanatory variables, or dependent variables, $x_1, x_2, x_3$, etc. Classic linear regression is referred to *Ordinary least squares* (OLS) regression because they estimate the relationship between one or more independent variables and a dependent variable $y$ using a hyperplane (i.e. a multi-dimensional line) that minimises the sum of the squared difference between the observed values of y and the values predicted by the model (denoted as $\hat{y}$, $y$-hat).
+Regression models are the standard method for constructing predictive and explanatory models. They tell us how changes in one variable (the target variable or independent variable, $Y$) are *associated with* changes in explanatory variables, or dependent variables, $x_1, x_2, x_3$ ($X_n$), etc. Classic linear regression is referred to *Ordinary least squares* (OLS) regression because they estimate the relationship between one or more independent variables and a dependent variable $y$ using a hyperplane (i.e. a multi-dimensional line) that minimises the sum of the squared difference between the observed values of y and the values predicted by the model (denoted as $\hat{y}$, $y$-hat).
 
 Having seen **Single Linear Regression** in class - where the relationship between one independent variable and a dependent variable is modeled - we can extend this concept to situations where more than one predictor might influence the outcome. While single linear regression helps us understand the effect of **ONE** variable in isolation, real-world phenomena are often influenced by multiple factors simultaneously. Multiple linear regression addresses this complexity by allowing us to model the relationship between a dependent variable and multiple independent variables, providing a more comprehensive view of how various predictors contribute to changes in the outcome.
 
 Here, regression allows us to examine the relationship between people's health rates and multiple predictors.
+
+Before starting, we define two hypotheses:
+
+- **Null hyphotesis** ($H_0$): For each variable $X_n$, there is no effect of $X_n$ on $Y$.
+- **Alternative hypothesis** ($H_1$): There is an effect of$X_n$ on Y.
+
+We will observe if we can reject the null hypothesis.
 
 ### Model fit
 
@@ -266,15 +272,72 @@ coefficients
 
 We focus on key output metrics:
 
--   **Adjusted R-squared**: Indicates how well the model explains the variance in the outcome variable.
 -   **Coefficients**: Estimate the average change in bad health rates for a one-unit increase in each predictor, assuming other variables are held constant.
+-  **p-values**
+-   **Adjusted R-squared**: Indicates how well the model explains the variance in the outcome variable.
+
+### How to interpret the results
+
+```{r}
+# Format regression results for reporting
+results_table <- coefficients %>%
+  select(term, estimate, statistic, p.value)
+results_table
+```
+
+####  Coefficient Estimates 
+
+The `Estimate` column in the output table tells us the rate of change between each dependent variable $X_n$ and $Y$. 
+
+**Intercept**: In the regression equation, this is $β_0$ and it indicates the value of $Y$ when $X_n$ are equal to zero. 
+**Slopes**: These are the other regression coefficients of an independent variable, e.g. $β_1$, i.e. estimated average changes in $Y$ for a one unit change in an indepdent variable, e.g. $X_1$, when all other dependent or explanatory variables are held constant.
+
+*There are two key points worth mentioning:*
+
+-   **The unit of** $X$ and $Y$: you need to know what the units are of the independent and dependent variables. For instance, one unit could be one year if you have an age variable, or a one percentage point if the variable is measured in percentages (all the variables in this week’s practical).
+-   **All the other explanatory variables are held constant**. It means that the coefficient of an explanatory variable $x_1$ (e.g. $b_1$) should be interpreted as: a one unit change in$x_1$ is associated with b1 units change in $Y$, keeping other values of explanatory variables (e.g. $x_2$, $x_3$) constant – for instance, $x_2$= 0.1 or $x_3$= 0.4.
+
+For the independent variable $X$, we can derive how changes of 1 unit for the independent are associated with the changes in `pct_Very_bad_health`:
+
+For example:
+
+-  The association of `pct_No_qualifications` is positive and strong: each increase in 1% of `pct_No_qualifications` is associated with an increase of 0.05% of long term illness rate.
+-   The association of `pct_Males` is negative and strong: each decrease in 1% of `pct_Males` is associated with an increase of 0.07% of `pct_Very_bad_health` in the population in England and Wales.
+-   The association of `pct_Higher_manager_prof` is negative but weak: each decrease in 1% of `pct_Higher_manager_prof` is associated with an increase of 0.013% of `pct_Very_bad_health`.
+
+#### P-values and Significance
+
+The ***t tests*** of regression coefficients are used to judge the statistical inferences on regression coefficients, i.e. associations between independent variables and the outcome variable. For a t-statistic of a dependent variable, there is a corresponding ***p-value*** that indicates different levels of significance in the column `Pr(>|t|)` and the asterisks `∗∗`. 
+
+ - `***` indicates "changes in $X_n$ are significantly associated with changes in $Y$ at the <0.001 level".
+ - `**` suggests that "changes in $X_n$ are significantly associated with changes in $Y$ between the 0.001 and (<) 0.01 levels".
+ - Now you should know what `*` means: The significance is between the 0.01 and 0.05 levels, which means that we observe a less significant (but still significant) relationship between the variables.
+
+The p-value provides a measure of how significant the relationship is; it is an indication of whether the relationship between $X_n$ and $Y$ found in this data could have been found by chance. Very small p-values suggest that the level of association found here might **not** have come from a random sample of data.
+
+In this case, we can say:
+
+- Given that the p-value is indicated by `***`, changes in `pct_No_qualifications` and `pct_Males` are significantly associated with changes in `pct_Very_bad_health` at the <0.001 level; the association is highly statistically significant; we can be confident that the observed relationship between these variables and `pct_Very_bad_health` is not due to chance. 
+- Given that the p-value is indicated by `**`, changes in `pct_Higher_manager_prof` are significantly associated with changes in `pct_Very_bad_health` at the 0.001 level. This means that the association between the indepedent and dependent variable is not one that would be found by chance in a series of random sample 99.999% of the time.
+
+In both cases we can then confidently reject the **Null** hypothesis ($H_0$: no association between dependent and indepdent variables exist).
+
+Remember,  If the  *p-value*  of a coefficient is smaller than 0.05, that coefficient is statistically significant. In this case, you can say that the relationship between this independent variable and the outcome variable is  *statistically*  significant. Contrarily, if the  *p-value* of a coefficient is larger than 0.05 you can conclude that there is no evidence of an association or relationship between the independent variable and the outcome variable.
+
+#### R-squared and Adjusted R-squared
+
+These provide a measure of model fit. This is calculated as the difference between the actual value of $Y$ and the value predicted by the model. In our model, the **R-squared and Adjusted R-squared** are greater than 0.6, thus indicating a well fitting model.
+
+The **R-squared** and **Adjusted R-squared** values are statistical measures that indicate how well the independent variables in your model explain the variability of the dependent variable. Both R-squared and Adjusted R-squared are commonly used to evaluate the **fit of a linear regression model**—meaning, they help us understand how closely the model's predictions align with the actual data. An R-squared of 0.6, for example, indicates that 60% of the variability in YYY is explained by the predictors in the model. The remaining 40% is due to other factors not captured by the model.
+
+Adjusted R-squared also measures the goodness of fit, but it adjusts for the number of predictors in the model, accounting for the fact that adding more variables can artificially inflate R-squared without genuinely improving the model. Adjusted R-squared is especially useful when comparing models with different numbers of predictors. If Adjusted R-squared is close to or above 0.6, as in your example, it implies that the model has a **strong explanatory power** while not being overfit with unnecessary predictors.
+
+A high R-squared and Adjusted R-squared indicate that the model captures much of the variation in the data, making it more reliable for predictions or for understanding the relationship between YYY and the predictor variables. However  **Low R-squared values** suggest that the model might be missing important predictors or that the relationship between $Y$ and the explanatory variables is not well-captured by a linear approach. 
+
+An R-squared and Adjusted R-squared over 0.6 are generally seen as signs of a **well-fitting model** in many fields, though the ideal values can depend on the context and the complexity of the data.
 
 ### Interpreting the Results
 
-The ***t tests*** of regression coefficients are used to judge the statistical inferences on regression coefficients, i.e. associations between independent variables and the outcome variable. For a t-statistic of a predictor variable there is a corresponding ***p-value***. It is much easier to judge the statistical inference on regression coefficient by comparing the p value to the conventional level of significance of **0.05**; as discussed above:
-
--   If the *p-value* of a coefficient is smaller than 0.05, the coefficient is statistically significant. In this case, you can say that the relationship between this independent variable and the outcome variable is *statistically* significant.
--   If the *p-value* of a coefficient is larger than 0.05, the coefficient is not statistically significant. In this case, you can say or conclude that there is no evidence of an association or relationship between this independent variable and the outcome variable.
 
 ```{r}
 # Format regression results for reporting
@@ -291,20 +354,10 @@ results_table
 | pct_Males               |              |          |          |              |
 | pct_Higher_manager_prof |              |          |          |              |
 
-### Interpretation of regression coefficients or covariate effects
-
-#### Interpretation of the Intercept or Constant term
 
 From the lecture notes, you know that the Intercept or Constant represents the estimated average value of the outcome variable when the values of all independent variables are equal to zero.
 
-**Q5**. When values of `pct_Males`, `pct_No_qualifications` and `pct_Higher_manager_prof` are all $zero$, what is the % of population with very bad health? Is the intercept term meaningful? Think about whether there are districts with zero percentages of persons with no qualification. Are there any districts (or units, depending on the dataset you chose) with zero percentages of persons with no qualification in your data set?
-
-#### Interpretation of regression slopes
-
-The regression coefficient of an independent variable is the estimated average change in $Y$ for a one unit change in $X$, when all other explanatory variables are held constant. There are two key points worth mentioning:
-
--   **The unit of** $X$ and $Y$: you need to know what the units are of the independent and dependent variables. For instance, one unit could be one year if you have an age variable, or a one percentage point if the variable is measured in percentages (all the variables in this week’s practical).
--   **All the other explanatory variables are held constant**. It means that the coefficient of an explanatory variable $x_1$ (e.g. $b_1$) should be interpreted as: a one unit change in$x_1$ is associated with b1 units change in $Y$, keeping other values of explanatory variables (e.g. $x_2$, $x_3$) constant – for instance, $x_2$= 0.1 or $x_3$= 0.4.
+**Q5**. When values of `pct_Males`, `pct_No_qualifications` and `pct_Higher_manager_prof` are all $zero$, what is the % of population with very bad health? Is the intercept term meaningful? Think about whether there are districts with a zero percentage of population with no qualification. Are there any districts (or zones, depending on the dataset you chose) with zero percentages of persons with no qualification in your data set?
 
 **Q6**. Interpret the regression coefficients of `pct_Males`, `pct_No_qualifications` and `pct_Higher_manager_prof`. Do they make sense?
 
@@ -318,7 +371,8 @@ Now combine the above two sections and identify factors affecting the percentage
 | pct_Higher_manager_prof |                      |                          |
 | pct_Males               |                      |                          |
 
-**Q5**. Think about the potential conclusions that can be drawn from the above analyses. Try to answer the research question of this practical: How do local factors affect residents’ health?
+**Q7**. Think about the potential conclusions that can be drawn from the above analyses. Try to answer the research question of this practical: How do local factors affect residents’ health? Think about causation *vs* association and consider potential confounders when interpreting the results. How could these findings influence local health policies?
+
 
 ## Part C: Practice and Extension
 
