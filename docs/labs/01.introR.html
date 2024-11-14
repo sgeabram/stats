@@ -342,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ├── labs_img/
 └── labs/</code></pre>
 <p>You can delete other sub-folders (e.g.&nbsp;docs).</p>
-<p><span style="color: red;">This should be on your personal computer or if on a local machine, I suggest using the directory M:&nbsp;to store the folder, it can be accessed from every computer.</span></p>
+<p><span style="color: red;">This should be on your personal computer or if on a local machine, I suggest using the directory M: to store the folder, it can be accessed from every computer.</span></p>
 <p>Then, in R Studio - on Windows by clicking RStudio&gt;Tools&gt;Global Options&gt;General.. - on Mac OS by clicking RStudio&gt;Preferences&gt;Appearance or Pane Layout…</p>
 <p>browse and set the folder you just creted as your working directory.</p>
 <p>Check if that has been applied.</p>
@@ -352,8 +352,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>File paths in R work like this:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 22%">
-<col style="width: 77%">
+<col style="width: 25%">
+<col style="width: 75%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -661,9 +661,9 @@ Carr, Jasmine, 81, 96, 97</code></pre>
 <p>The primary function that we’ll use to read data from a file and into R is the function <code>read.csv()</code>. This function has many optional arguments but the most commonly used ones are outlined in the table below.</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 16%">
-<col style="width: 16%">
-<col style="width: 66%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 58%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1040,7 +1040,7 @@ $ survey_weight    &lt;int&gt; 2315, 1317, 2449, 427, 1017, 1753, 1363, 1344, 82
 <col style="width: 12%">
 <col style="width: 12%">
 <col style="width: 12%">
-<col style="width: 14%">
+<col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -1219,7 +1219,6 @@ $ survey_weight    &lt;int&gt; 2315, 1317, 2449, 427, 1017, 1753, 1363, 1344, 82
 <div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
 <p><strong>Task</strong>: Determine the Scale of the Outcome Variable.</p>
 </div>
-<p>**</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize income variables</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(frs_data<span class="sc">$</span>income_gross)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1239,7 +1238,6 @@ $ survey_weight    &lt;int&gt; 2315, 1317, 2449, 427, 1017, 1753, 1363, 1344, 82
 <div style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;">
 <p><strong>Task</strong>: Exclude Dependent Children.</p>
 </div>
-<p>**</p>
 <p>You need to select all cases (persons) that are independent, that is where the variable <code>dependent</code> has values different from <code>!=</code> “Dependent” or equal <code>==</code> “Independent”.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter to include only independent persons</span></span>
