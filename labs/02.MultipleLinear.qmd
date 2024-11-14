@@ -36,7 +36,7 @@ see also: https://canvas.liverpool.ac.uk/courses/77895/pages/census-data-2021
 library(ggplot2) 
 library(dplyr) 
 
-options(scipen = 999)  # Set a high penalty for scientific notation
+options(scipen = 999, digits = 4)  # Avoid scientific notation and round to 4 decimals globally
 
 # load data
 census <- read.csv("../data/Census2021/EW_DistrictPercentages.csv") # District level
