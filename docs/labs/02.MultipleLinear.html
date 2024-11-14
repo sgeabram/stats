@@ -309,7 +309,7 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)  <span class="co"># Set a high penalty for scientific notation</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>, <span class="at">digits =</span> <span class="dv">4</span>)  <span class="co"># Avoid scientific notation and round to 4 decimals globally</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load data</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>census <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/Census2021/EW_DistrictPercentages.csv"</span>) <span class="co"># District level</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -330,11 +330,11 @@ Attaching package: 'dplyr'</code></pre>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>summary_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  pct_Very_bad_health_mean pct_No_qualifications_mean pct_Males_mean
-1                 1.173198                   17.89878       48.96817
+1                    1.173                       17.9          48.97
   pct_Higher_manager_prof_mean pct_Very_bad_health_sd pct_No_qualifications_sd
-1                     13.21677              0.3401808                 3.959094
+1                        13.22                 0.3402                    3.959
   pct_Males_sd pct_Higher_manager_prof_sd
-1     0.660313                   4.730412</code></pre>
+1       0.6603                       4.73</code></pre>
 </div>
 </div>
 <p><strong>Q1</strong>. Complete the table below by specifying each variable type (continuous or categorical) and reporting its mean and standard deviation.</p>
@@ -487,7 +487,7 @@ Attaching package: 'dplyr'</code></pre>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the results</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Pearson Correlation:"</span>, pearson_correlation, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Pearson Correlation: 0.7620569 </code></pre>
+<pre><code>Pearson Correlation: 0.7621 </code></pre>
 </div>
 </div>
 <p>Spearman correlations:</p>
@@ -497,7 +497,7 @@ Attaching package: 'dplyr'</code></pre>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Spearman Correlation:"</span>, spearman_correlation, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Spearman Correlation: 0.7785197 </code></pre>
+<pre><code>Spearman Correlation: 0.7785 </code></pre>
 </div>
 </div>
 <table class="caption-top table">
@@ -544,13 +544,13 @@ Attaching package: 'dplyr'</code></pre>
     Pearson's product-moment correlation
 
 data:  census$pct_Very_bad_health and census$pct_No_qualifications
-t = 21.347, df = 329, p-value &lt; 0.00000000000000022
+t = 21, df = 329, p-value &lt;0.0000000000000002
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.7128142 0.8038232
+ 0.7128 0.8038
 sample estimates:
-      cor 
-0.7620569 </code></pre>
+   cor 
+0.7621 </code></pre>
 </div>
 </div>
 <p>Look at https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/cor.test for details about the function. But in general, when calculating the correlation between two variables, a <strong>p-value</strong> accompanies the correlation coefficient to indicate the statistical significance of the observed association. This p-value tests the null hypothesis that there is no association between the two variables (i.e., that the correlation is zero).</p>
@@ -619,21 +619,21 @@ lm(formula = pct_Very_bad_health ~ pct_No_qualifications + pct_Males +
     pct_Higher_manager_prof, data = census)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--0.49028 -0.13686 -0.03516  0.09834  0.76575 
+    Min      1Q  Median      3Q     Max 
+-0.4903 -0.1369 -0.0352  0.0983  0.7658 
 
 Coefficients:
-                         Estimate Std. Error t value             Pr(&gt;|t|)    
-(Intercept)              4.017987   0.880039   4.566           0.00000706 ***
-pct_No_qualifications    0.052959   0.005911   8.959 &lt; 0.0000000000000002 ***
-pct_Males               -0.073920   0.017850  -4.141           0.00004403 ***
-pct_Higher_manager_prof -0.013088   0.004938  -2.650              0.00843 ** 
+                        Estimate Std. Error t value             Pr(&gt;|t|)    
+(Intercept)              4.01799    0.88004    4.57            0.0000071 ***
+pct_No_qualifications    0.05296    0.00591    8.96 &lt; 0.0000000000000002 ***
+pct_Males               -0.07392    0.01785   -4.14            0.0000440 ***
+pct_Higher_manager_prof -0.01309    0.00494   -2.65               0.0084 ** 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.2133 on 327 degrees of freedom
-Multiple R-squared:  0.6105,    Adjusted R-squared:  0.6069 
-F-statistic: 170.8 on 3 and 327 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+Residual standard error: 0.213 on 327 degrees of freedom
+Multiple R-squared:  0.61,  Adjusted R-squared:  0.607 
+F-statistic:  171 on 3 and 327 DF,  p-value: &lt;0.0000000000000002</code></pre>
 </div>
 </div>
 <p><strong>Code explanation</strong></p>
