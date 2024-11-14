@@ -9,6 +9,8 @@ In this week’s practical, we will review how to calculate and visualise correl
 
 Before getting into it, have a look at this [resource](https://mlu-explain.github.io/linear-regression/), it really helps understand how regression models work.
 
+The lecture's slides can be found [here](https://github.com/GDSL-UL/stats/blob/main/lectures/lecture08.pdf).
+
 **Learning Objectives:**
 
 -   Visualise the association between two continuous variables using a scatterplot.
@@ -274,13 +276,13 @@ coefficients
 
 These are:
 
--   **Regression Coefficients**.
+-   **Regression Coefficient Estimates.**
 -   **P-values.**
 -   **Adjusted R-squared**.
 
 ### How to interpret the output metrics
 
-#### Coefficient Estimates
+#### **Regression** Coefficient Estimates
 
 The `Estimate` column in the output table tells us the rate of change between each dependent variable $X_n$ and $Y$.
 
