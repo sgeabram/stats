@@ -272,6 +272,7 @@ window.Quarto = {
 
 <p>In this week’s practical, we will review how to calculate and visualise correlation coefficients between variables. This practical is split into two parts. The first part focuses on measuring the correlation between and visualising the relationship between <strong>continuous variables</strong>. The second part goes through the implementation of a Linear Regression Model, again between continuous variables.</p>
 <p>Before getting into it, have a look at this <a href="https://mlu-explain.github.io/linear-regression/">resource</a>, it really helps understand how regression models work.</p>
+<p>The lecture’s slides can be found <a href="https://github.com/GDSL-UL/stats/blob/main/lectures/lecture08.pdf">here</a>.</p>
 <p><strong>Learning Objectives:</strong></p>
 <ul>
 <li>Visualise the association between two continuous variables using a scatterplot.</li>
@@ -673,15 +674,15 @@ F-statistic:  171 on 3 and 327 DF,  p-value: &lt;0.0000000000000002</code></pre>
 </div>
 <p>These are:</p>
 <ul>
-<li><strong>Regression Coefficients</strong>.</li>
+<li><strong>Regression Coefficient Estimates.</strong></li>
 <li><strong>P-values.</strong></li>
 <li><strong>Adjusted R-squared</strong>.</li>
 </ul>
 </section>
 <section id="how-to-interpret-the-output-metrics" class="level3" data-number="2.1.5">
 <h3 data-number="2.1.5" class="anchored" data-anchor-id="how-to-interpret-the-output-metrics"><span class="header-section-number">2.1.5</span> How to interpret the output metrics</h3>
-<section id="coefficient-estimates" class="level4" data-number="2.1.5.1">
-<h4 data-number="2.1.5.1" class="anchored" data-anchor-id="coefficient-estimates"><span class="header-section-number">2.1.5.1</span> Coefficient Estimates</h4>
+<section id="regression-coefficient-estimates" class="level4" data-number="2.1.5.1">
+<h4 data-number="2.1.5.1" class="anchored" data-anchor-id="regression-coefficient-estimates"><span class="header-section-number">2.1.5.1</span> <strong>Regression</strong> Coefficient Estimates</h4>
 <p>The <code>Estimate</code> column in the output table tells us the rate of change between each dependent variable <span class="math inline">\(X_n\)</span> and <span class="math inline">\(Y\)</span>.</p>
 <p><strong>Intercept</strong>: In the regression equation, this is <span class="math inline">\(β_0\)</span> and it indicates the value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X_n\)</span> are equal to zero.</p>
 <p><strong>Slopes</strong>: These are the other regression coefficients of an independent variable, e.g.&nbsp;<span class="math inline">\(β_1\)</span>, i.e.&nbsp;estimated average changes in <span class="math inline">\(Y\)</span> for a one unit change in an independent variable, e.g.&nbsp;<span class="math inline">\(X_1\)</span>, when all other dependent or explanatory variables are held constant.</p>
