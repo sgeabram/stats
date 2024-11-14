@@ -9,9 +9,17 @@ output: html_document
 
 Multiple Linear Regression (MLR) is a statistical method that models the relationship between a dependent variable and two or more independent variables, allowing researchers to examine how various predictors jointly influence an outcome.
 
-`model <- lm(pct_Very_bad_health ~ pct_No_qualifications + pct_Males + pct_Higher_manager_prof, data = census)  summary(model)`
+`model <- lm(pct_Very_bad_health ~ pct_No_qualifications + pct_Males + pct_Higher_manager_prof, data = census)`
 
-In a regression model, independent/predictor variables could be continuous or categorical (or qualitative). While continuous variables capture quantitative effects, **categorical variables provide insights into differences across groups**. By blending continuous and categorical predictors, MLR with categorical variables enhances the model's ability to reflect real-world complexities and improves interpretability, as it allows analysts to assess how each category or group within a independent variable influences the dependent variable.
+`summary(model)`
+
+In a regression model, independent/predictor variables could be continuous or categorical (or qualitative). While continuous variables capture quantitative effects, **categorical variables provide insights into differences across groups**. When we say categorical variables, we normally mean:
+
+-   Nominal Data: categorical data without natural order. E.g. Gender, Colour, Country...
+
+-   Ordinal Data: categorical data with a meaningful order. E.g. Education level, Customer satisfaction, Grade...
+
+By blending continuous and categorical predictors, MLR with categorical variables enhances the model's ability to reflect real-world complexities and improves interpretability, as it allows analysts to assess how each category or group within a independent variable influences the dependent variable.
 
 For most categorical (especially the *nominal*) variables, they cannot be included in the regression model directly as a continuous independent variable. Instead, these qualitative independent variables should be included in regression models by using the **dummy variable** approach, transforming categorical information into a numerical format suitable for regression analysis.
 
@@ -33,7 +41,7 @@ Recall in Week 7, you get familiar to R by using the Family Resource Survey data
 
 ### Data overview
 
-```{r warning=FALSE}
+```{r,results='hide',warning=FALSE}
 # Load necessary libraries 
 library(ggplot2) 
 library(dplyr) 
@@ -41,56 +49,140 @@ library(dplyr)
 
 #or use tidyverse which includes ggplot2, dplyr and other foundamental libraries, remember you need first install the package if you haven't by using install.packages("tidyverse")
 
-```{r warning=FALSE}
+```{r,results='hide',warning=FALSE}
 library(tidyverse)
 ```
 
-Exactly as Week 7, we load in the dataset:
+Exactly as you did in previous weeks, we first load in the dataset:
 
 ```{r}
 frs_data <- read.csv("../data/FamilyResourceSurvey/FRS16-17_labels.csv")
 ```
 
-Recall in Week 7, we used the following code to understand the dataset. Familiar yourself again by using them:
+Recall in previous weeks, we used the following code to overview the dataset. Familiar yourself again by using them:
 
-```{r warning=FALSE}
+```{r,results='hide'}
 View(frs_data)
 glimpse(frs_data)
 ```
 
-and also
+and also `summary()` to produce summaries of each variable
 
-```{r}
+```{r,results='hide'}
 summary(frs_data)
 ```
 
-You may notice that for the numeric variables such as educ_age (education age), hh_income_gross (household gross income) and work_hours(worked hours per week), the summary() offers useful descriptive statistics. While for the qualitative information, such as Age (*age_group*), Highest educational qualification (*highest_qual*), Marital status (*marital_status*) and Socio-economic status (*nssec*), it summary() function is not that useful by providing mean or median values.
+You may notice that for the numeric variables such as *hh_income_gross* (household gross income) and *work_hours*(worked hours per week), the `summary()` offers useful descriptive statistics. While for the qualitative information, such as *age_group* (age group), *highest_qual (*Highest educational qualification), *marital_status (*Marital status) and *nssec (*Socio-economic status), the `summary()` function is not that useful by providing mean or median values.
 
 Performing descriptive analysis for categorical variables or qualitative variables, we focus on summarising the frequency and distribution of categories within the variable. This analysis helps understand the composition and diversity of categories in the data, which is especially useful for identifying patterns, common categories, or potential data imbalances.
 
 ```{r}
 # Frequency count
-
+table(frs_data$age_group)
+table(frs_data$highest_qual)
+table(frs_data$marital_status)
+table(frs_data$nssec)
 ```
+
+By using ggplot2, it is easy to create some nice descriptive charts for the categorical variables, such like what you did for the continuous variables last week.
+
+```{r, warning=FALSE}
+ggplot(frs_data, aes(x = highest_qual)) +
+  geom_bar(fill="brown",width=0.5) +
+  labs(title = "Histogram of Highest Qualification in FRS", x = "Highest Qualification", y = "Count")+#set text info
+  theme_classic()#choose theme type, try theme_bw(), theme_minimal() see differences
+```
+
+```{r,warning=FALSE}
+
+ggplot(frs_data, aes(x = health)) +
+  geom_bar(fill="skyblue") +
+  geom_text(stat = "count", aes(label = ..count..),vjust = -0.3,colour = "grey")+ #add text
+  labs(title = "Histogram of Health in FRS", x = "Health", y = "Count")+#set text info
+  theme_minimal()
+```
+
+```{r,warning=FALSE}
+ggplot(frs_data, aes(x = nssec)) + 
+  geom_bar(fill = "yellow4") + 
+  labs(title = "Histogram of NSSEC in FRS", x = "NSSEC", y = "Count") +
+  coord_flip()+ #Flip the Axes, add a # in front of this line, to make the code in gray and you will see why we would better flip the axes at here
+  theme_bw() 
+ 
+```
+
+You can change the variables in ggplot() to make your own histogram chart for the variables you are interested in. You will learn more of visualisation methods in Week11's practical.
+
+### Correlation
+
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Q1. Which of the associations do you think is strongest? Which is the weakest?**
+:::
+
+As before, rather than relying upon an impressionistic view of the strength of the association between two variables, we can measure that association by calculating the relevant correlation coefficient.
+
+To calculate the correlation between categorical data, we first use Chi-squared test to assess the independence between pairs of categorical variables, then we use Cramer’s V to measures the strength of association - the correlation coefficents in R.
+
+**Pearson’s chi-squared test** (χ2) is a statistical test applied to sets of categorical data to evaluate how likely it is that any observed difference between the sets arose by chance. If the p-value is low (typically \< 0.05), it suggests a significant association between the two variables.
+
+```{r}
+chisq.test(frs_data$health,frs_data$happy) 
+```
+
+If you see a warning message of Chi-squared approximation may be incorrect. This is because some expected frequencies in one or more cells of the cross-tabular (health \* happy) are too low. The df means degrees of freedom and it related to the size of the table and the number of categories in each variable. The most important message from the output is the estimated p-value, which shows as p-value \< 2.2e-16 (2.2 with 16 decimals move to the left, it is a very small number so written in scientific notation). P-value of the chi-squared test is far smaller than 0.05, so we can say the correlation is statistically significant.
+
+**Cramér’s V** is a measure of association for categorical (nominal or ordinal) data. It ranges from 0 (no association) to 1 (strong association). The main downside of using Cramer’s V is that no information is provided on whether the correlation is positive or negative. This is not a problem if the variable pair includes a nominal variable but represents an information loss if the both variables being correlated are ordinal.
+
+```{r}
+# Install the 'vcd' package if not installed 
+if(!require("vcd"))   
+install.packages("vcd") 
+library(vcd)  
+
+# Calculate Cramér's V 
+assocstats(table(frs_data$health, frs_data$happy))
+```
+
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Research Question 1. Which of our selected person-level variables is most strongly correlated with an individual’s health status?**
+:::
+
+Use the codes of Chi-test and Cramer's V to answer this question by completing Table 1.
+
+**Table 1 Person-level correlations with health status**
+
++-----------------+------------------+-------------------------------+--------------------------------+
+| **Covariates**  |                  | **Correlation Coefficient**   | **Statistical Significance**   |
++-----------------+------------------+-------------------------------+--------------------------------+
+|                 |                  | *Cramer’s V*                  | *p-value*                      |
++-----------------+------------------+-------------------------------+--------------------------------+
+| *health*        | *age_group*      |                               |                                |
++-----------------+------------------+-------------------------------+--------------------------------+
+| *Health*        | *highest_qual*   |                               |                                |
++-----------------+------------------+-------------------------------+--------------------------------+
+| *health*        | *marital_status* |                               |                                |
++-----------------+------------------+-------------------------------+--------------------------------+
+| *Health*        | *nssec*          |                               |                                |
++-----------------+------------------+-------------------------------+--------------------------------+
 
 ## **Implementing a linear regression model with a qualitative independent variable**
 
 ::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
-**Research Question 1: How does health vary across regions in the UK?**
+**Research Question 2: How does health vary across regions in the UK?**
 :::
 
 The practical is split into two main parts. The first focuses on implementing a linear regression model with a qualitative independent variable. **Note that** you need first to set the reference category (baseline) as the outcomes of the model reflects the **differences** between categories with the baseline. The second part focuses prediction based the estimated linear regression model.
 
-First we load the UK district-level census dataset.
+First we load the UK district-level census dataset. As the
 
 **`Change the dir later`**
 
 ```{r warning=FALSE}
 # load data
-LAcensus <- read.csv("../data/UKLocalAuthorityDistrictpercentages.csv") # Local authority level
+LAcensus <- read.csv("../data/Census2011/UK_DistrictPercentages.csv") # Local authority level
 ```
 
-Using the district-level census dataset "**UKLocalAuthorityDistrictPercentages.csv**". the variable "Region" (labelled as Government Office Region) is used to explore regional inequality in health.
+Using the district-level census dataset "**UK_DistrictPercentages.csv**". the variable "Region" (labelled as Government Office Region) is used to explore regional inequality in health.
 
 Familiar yourself with the dataset by using the same codes as last week:
 
@@ -130,7 +222,9 @@ summary(df)
 
 Now we can retrieve the "Region" column from the data frame by simply use **df\$Region**. But what if we want to understand the data better, like the following questions?
 
-**Q1. How many categories do the variable "Region" entail? How many local authority districts does each region include?**
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Q2. How many categories do the variable "Region" entail? How many local authority districts does each region include?**
+:::
 
 Simply use the function table() would return you the answer.
 
@@ -140,9 +234,9 @@ table(df$Region)
 
 The numbers in Region column indicate different regions in the UK - 1: East Midlands; 2: East of England; 3: London; 4: North East; 5: North West; 6: South East; 7: South West; 8: West Midlands; 9: Yorkshire and the Humber; 10: Wales; 11: Scotland; and 12: Northern Ireland.
 
-The table() function tells us that this data frame contains 12 regions, and the number of LAs belongs to each region.
+The `table()` function tells us that this data frame contains 12 regions, and the number of LAs belongs to each region.
 
-Now, for better interpration of our regions with their real name rather than the code, we can create a new column named "Region_label" by using the following code. R can only include the categorical variables in the **factor** type, so here you may noticed that
+Now, for better interpration of our regions with their real name rather than the code, we can create a new column named "*Region_label*" by using the following code. \*\*R can only include the categorical variables in the **factor** type, so we set the new column *Region_label* in `factor()`
 
 ```{r}
 df$Region_label <- factor(df$Region,c(1:12),labels=c("East Midlands",
@@ -167,11 +261,11 @@ table(df$Region_label)
 
 ### **Include the categorical variables into a regression model**
 
-We will continue with the regression model fitted in last week that relates Percentages long-term illness (*pct_Long_term_ill*) to Percentages no-qualification (*pct_No_qualifications*), Percentage Males (*pct_Males*) and Percentages Higher Managerial or Professional occupation (*pct_Higher_manager_prof*).
+We will continue with a very similar regression model fitted in last week that relates Percentages long-term illness (*pct_Long_term_ill*) to Percentages no-qualification (*pct_No_qualifications*), Percentage Males (*pct_Males*) and Percentages Higher Managerial or Professional occupation (*pct_Higher_manager_prof*).
 
-Decide which region to be set as the baseline category. The principle is that if you want to compare the (average) health outcome of Region A to those of other regions, Region A should be chosen as the baseline category. For example, if you want to compare the (average) health outcome of London to rest of regions in the UK, London should be selected as the baseline category.
+Decide which region to be set as the baseline category. The principle is that if you want to compare the (average) long term illness outcome of Region A to those of other regions, Region A should be chosen as the baseline category. For example, if you want to compare the (average) long term illness outcome of London to rest of regions in the UK, London should be selected as the baseline category.
 
-Implement the regression model with the newly created dummy variables. **Note:** We choose London as the baseline category so the London region will be [**excluded**]{.underline} in the independent variable list.
+Implement the regression model with the newly created categorical variables - *Region_label* in our case. R will automatically handle the qualitative variable as dummy variables so you don't need to concern any of that. But you need to let R knows which category of your qualitative variable is your reference category or the baseline. Here we will use London as our first go. **Note:** We choose London as the baseline category so the London region will be [**excluded**]{.underline} in the independent variable list.
 
 Therefore, first, we set London as the reference:
 
@@ -179,7 +273,7 @@ Therefore, first, we set London as the reference:
 df$Region_label <- relevel(df$Region_label, ref = "London")
 ```
 
-Similar to last week, we build our linear regression model, but also include the Region_label variable into the model.
+Similar to last week, we build our linear regression model, but also include the *Region_label* variable into the model.
 
 ```{r}
 model <- lm(pct_Long_term_ill ~ pct_Males + pct_No_qualifications + pct_Higher_manager_prof + Region_label, data = df)
@@ -187,44 +281,59 @@ model <- lm(pct_Long_term_ill ~ pct_Males + pct_No_qualifications + pct_Higher_m
 summary(model)
 ```
 
-Relating back to this week's lecture notes, indicate what regions have statistically significant differences in the percentage of long-term illness, compared to London.
+You have already learnt how to interpret the output of regression model last week: **Significance** (p-value), **Coefficient Estimates, and Model fit** (R squared and Adjusted R-squared).
 
-First, **Significance**.
+::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
+**Q3. Relating back to this week's lecture notes, indicate what regions have statistically significant differences in the percentage of long-term illness, compared to London?**
+:::
 
-The level of significance is indicated by the *p-value* in the column Pr(\>\|t\|)Pr(\>\|t\|) and the asterisks ∗∗. By examining the P-value, which is the last column in the output table, we can see that most of the dependent variables are significant predictor of `pct_Long_term_ill`.
+First, the **Significance** and the **Coefficient Estimates**. By examining the P-value, which is the last column in the output table, we can see that most of the independent variables are significant predictor of `pct_Long_term_ill`.
 
-The p-value provides a measure of how surprising the relationship is and indicative of whether the relationship between Xk and Y found in this data could have been found by chance. Very small p-values suggest that the level of association found here could **not** have come from a random sample of data. Cutting to the chase, small p-values mean strong evidence for a non-zero regression coefficient.
+-   Similarly to last week, we learn that the changes in `pct_No_qualifications` and `pct_Males`are significantly associated with changes in `pct_Long_term_ill` at the \<0.001 level (with the three asterisks \*\*\* ), which is actually an indicator of highly statistically significant, while we are less confident that the observed relationship between `pct_Higher_manager_prof` and `pct_Long_term_ill` are statistically significant (with the two asterisks \*\*). Through their coefficient estimates, we learn that:
 
-So in this case, we can say:
+    -   The association of `pct_Males` is negative and strong: each decrease in 1% of `pct_Males` is associated with an increase of 0.75% of long term illness rate in the population of UK.
 
--   changes in pct_Males, pct_No_qualifications, pct_Higher_manager_prof, Region_labelNorth East, Region_labelNorth West, Region_labelSouth West and Region_labelWales are significantly assoicated with changes in `pct_Long_term_ill` at the
+    -   The association of `pct_No_qualifications` is positive and strong: each increase in 1% of `pct_No_qualifications` is associated with an increase of 0.5% of long term illness rate.
 
-    ```         
-    ```
+    -   The association of `pct_Higher_manager_prof` is positive but weak: each increase in 1% of `pct_Higher_manager_prof` is associated with an increase of 0.08% of `pct_Long_term_ill`.
 
-Thrid, **R-squared and Adjusted R-squared** are of greater than 0.8 indicate a reasonably well fitting model.
+-   Now comes to the dummy variables (all the items starts with Region_label) created by R for our qualitative variable *Region_label*: `Region_labelNorth East`, `Region_labelNorth West`, `Region_labelSouth West` and `Region_labelWales` are also statistically significant at the \<0.001 level. The changes in `Region_labelEast Midlands` are significantly associated with changes in `pct_Long_term_ill` at the 0.001 level, while the changes in `Region_labelWest Midlands` and `Region_labelYorkshire and the Humber` are significantly associated with changes in `pct_Long_term_ill` at the 0.01 level. The 0.01 level suggests that it is a mild likelihood that the relationship between these independent variables and the dependent variable is not due to random change. They are just mildly statistically significant.
 
--   **Estimate**: The estimated coefficients (or called beta) for each dependent variables.
+-   The coefficient estimates of them need to be interpreted by comparing to the reference category London. The Estimate column tells us: North East region is associated with a 2.7% higher rate of long term illness than London when the other predictors remain the same. Similarly, Wales is 4.6% higher rate of long term illness than London when the other predictors remain the same. You can draw the conclusion for the other regions in this way by using their coefficient estimate values.
 
--   **P-value**: The significance value, which indicates the statistical significance of each term.
+    **Reminder**: You **cannot** draw conclusion between North East and Wales, nor comparison between any regions beyond London. It is because the regression model is built for the comparison between regions to your reference category London. If we want to compare between North East and Wales, we need to set either of them as the reference category by using `df$Region_label <- relevel(df$Region_label, ref = "North East")` or `df$Region_label <- relevel(df$Region_label, ref = "Wales")`.
 
--   **R-squared and Adjusted R-squared**: Measure of model fit. The model explains 83.0 % of the variance in the dependent variable. After adjusting for the number of independent variable, the model explains 82.4% of the variance. They two suggest a strong fit of the model.
+-   `Region_labelEast of England`, `Region_labelSouth Eest`, `Region_labelScotland` and `RegionlabelNorthern Ireland` were not found to be significantly associated with `pct_Long_term_ill`.
+
+Last but not least, the **Measure of Model Fit**. The model output suggests the R-squared and Adjusted R-squared are of greater than 0.8 indicate a reasonably well fitting model. he model explains 83.0 % of the variance in the dependent variable. After adjusting for the number of independent variable, the model explains 82.4% of the variance. They two suggest a strong fit of the model.
 
 Now, complete the following table.
 
-| Region names | Higher or lower than London | Whether the difference is statistically significant (Yes or No) |
-|:----------------:|:----------------:|:----------------------------------:|
-| East Midlands |  |  |
-| East of England |  |  |
-| North East |  |  |
-| North West |  |  |
-| South East |  |  |
-| South West |  |  |
-| West Midlands |  |  |
-| Yorkshire and The Humber |  |  |
-| Wales |  |  |
-| Scotland |  |  |
-| Northern Ireland |  |  |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| Region names             | Higher or lower than London | Whether the difference is statistically significant (Yes or No) |
++:========================:+:===========================:+:===============================================================:+
+| East Midlands            |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| East of England          |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| North East               |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| North West               |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| South East               |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| South West               |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| West Midlands            |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| Yorkshire and The Humber |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| Wales                    |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| Scotland                 |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
+| Northern Ireland         |                             |                                                                 |
++--------------------------+-----------------------------+-----------------------------------------------------------------+
 
 ### **Change the baseline category**
 
@@ -237,9 +346,9 @@ df$Region_label <- relevel(df$Region_label, ref = "East of England")
 The regression model is specified again as follows:
 
 ```{r}
-model <- lm(pct_Long_term_ill ~ pct_Males + pct_No_qualifications + pct_Higher_manager_prof + Region_label, data = df)
+model1 <- lm(pct_Long_term_ill ~ pct_Males + pct_No_qualifications + pct_Higher_manager_prof + Region_label, data = df)
 
-summary(model)
+summary(model1)
 ```
 
 ### Recode the Region variable and explore regional inequality in health
@@ -268,9 +377,7 @@ Here we use mutate() function in R to make it happen:
 df <- df %>% mutate(New_region_label = if_else(!Region_label %in% c("London","Wales","Scotland","Northern Ireland"), "Other regions in England",Region_label))
 ```
 
-This code seems a bit complex, but no worries, let's look into each bit of it. You can simply type ?mutate in your console. Now in your right hand Help window, the R studio offers your the explanation of the mutate function. This is a common way you can use R studio to help you learn what the function can do.
-
-From the help window, we now know that `mutate()` creates new columns that are functions of existing variables. Therefore, the `df %>% mutate()` means add a new column into the current dataframe `df`; the `New_region_label` in the `mutate()` function indicates the name of this new column is `New_region_label`. The right side of the `New_region_label =` indicates the value we want to assign to the `New_region_label` in each row.
+This code may looks a bit complex. You can simply type ?mutate in your console. Now in your right hand Help window, the R studio offers your the explanation of the mutate function. This is a common way you can use R studio to help you learn what the function ca`ate()` creates new columns that are functions of existing variables. Therefore, the `df %>% mutate()` means add a new column into the current dataframe `df`; the `New_region_label` in the `mutate()` function indicates the name of this new column is `New_region_label`. The right side of the `New_region_label =` indicates the value we want to assign to the `New_region_label` in each row.
 
 The right side of `New_region_label` is
 
@@ -309,26 +416,28 @@ df$New_region_label <- relevel(df$New_region_label, ref = "London")
 The linear regression window is set up below. This time we include `New_region_label` rather than `Region_label` as the region variable:
 
 ```{r}
-model <- lm(pct_Long_term_ill ~ pct_Males + pct_No_qualifications + pct_Higher_manager_prof + New_region_label, data = df)
+model2 <- lm(pct_Long_term_ill ~ pct_Males + pct_No_qualifications + pct_Higher_manager_prof + New_region_label, data = df)
 
-summary(model)
+summary(model2)
 ```
 
 ::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
-**Q2. Are there statistically significant differences in the percentage of people with long-term illness between London and Scotland, and between London and Wales, controlling for other variables? What conclusions could be drawn in terms of regional differences in health outcome?**
+**Q4. Are there statistically significant differences in the percentage of people with long-term illness between London and Scotland, and between London and Wales, controlling for other variables? What conclusions could be drawn in terms of regional differences in health outcome?**
 :::
 
 ## Predictions using fitted regression model
 
-### **Write down the % illness regression model with the new region categorical variables**
+### **Write down the % illness regression model with the new region label categorical variables**
 
 Relating to this week’s lecture, the % *pct_Long_term_ill* is equal to:
 
-**\[write down the model here\]**
+**\[write down the model\]**
 
 ::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
-**Q3. Now imagine that the values of variables *pct_Males, pct_No_qualifications, and pct_Higher_manager_prof* are 49, 23 and 11, respectively, what would the percentage of persons with long-term illness in Wales and London be?**
+**Q5. Now imagine that the values of variables *pct_Males, pct_No_qualifications, and pct_Higher_manager_prof* are 49, 23 and 11, respectively, what would the percentage of persons with long-term illness in Wales and London be?**
 :::
+
+Check the answer at the end of this practical page
 
 ## Income inequality with respect to gender and health status
 
@@ -377,7 +486,7 @@ tidy(model_frs)
 ```
 
 ::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
-**Q4.** What conclusions could be drawn in terms of income inequalities with respect to gender and health status? Also think about the statistical significance of these differences.
+**Q6.** **What conclusions could be drawn in terms of income inequalities with respect to gender and health status? Also think about the statistical significance of these differences.**
 :::
 
 ## **Extension activities**
@@ -393,3 +502,15 @@ The extension activities are designed to get yourself prepared for the Assignmen
 -   Think about other potential factors of long-term illness and income, and then test your ideas with linear regression models
 
 -   Summaries your model outputs and interpret the results.
+
+**Answer of the written down model and Q5**
+
+The model of the new region label is: *pct_Long_term_ill* (%) *= 47.218+ (-0.834)\* pct_Males* (%) *+ 0.472 \* pct_No_qualifications* (%) *+ 1.072\*Other Regions in England + 4.345\* Wales*
+
+So if the values of variables *pct_Males, pct_No_qualifications, and pct_Higher_manager_prof* are 49, 23 and 11,
+
+the model of Wales will be: *pct_Long_term_ill* (%) *= 47.218+ (-0.834)\* 49 + 0.472 \* 23 + 1.072\*0+ 4.345\* 1 = 21.553* (you can direct paste the number sentence into your R studio Console and the result will be returned)
+
+the model of London will be: *pct_Long_term_ill* (%) *= 47.218+ (-0.834)\* 49 + 0.472 \* 23 + 1.072\*0+ 4.345\* 0 = 17.208*
+
+**Therefore, the percentage of persons with long-term illness in Wales and London be 21.533% and 17.208% separately. If you got the right answers, then congratulations you can now use regression model to make prediction.**
