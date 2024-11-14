@@ -115,7 +115,7 @@ stats/
 
 You can delete other sub-folders (e.g. docs).
 
-[This should be on your personal computer or if on a local machine, I suggest using the directory M: to store the folder, it can be accessed from every computer.]{style="color: red;"}
+[This should be on your personal computer or if on a local machine, I suggest using the directory M: to store the folder, it can be accessed from every computer.]{style="color: red;"}
 
 Then, in R Studio - on Windows by clicking RStudio\>Tools\>Global Options\>General.. - on Mac OS by clicking RStudio\>Preferences\>Appearance or Pane Layout...
 
@@ -633,7 +633,6 @@ You should see the histogram below. It reveals that the income distribution is v
 ::: {style="background-color: #FFFBCC; padding: 10px; border-radius: 5px; border: 1px solid #E1C948;"}
 **Task**: Adopt a regrouping strategy.
 :::
-
 
 You can also cross-tabulate gross (or net) income with any of the other variables in the FRS to your heart’s content – or can you?
 
