@@ -65,10 +65,10 @@ summary_data
 
 | Variable Name           | Type (Continuous or Categorical) | Mean | Standard Deviation |
 |------------------|-------------------|------------------|------------------|
-| pct_Very_bad_health     |                                  |      |                    |
-| pct_No_qualifications   |                                  |      |                    |
-| pct_Males               |                                  |      |                    |
-| pct_Higher_manager_prof |                                  |      |                    |
+| pct_Very_bad_health     |        continuous               | 1.173 |   0.3402    |    
+| pct_No_qualifications   |            continuous           | 17.9  |  3.959      |           
+| pct_Males               |          continuous              | 48.97 |   0.6603   |               
+| pct_Higher_manager_prof |             continuous           | 13.22  |  4.73     |           
 
 ### Simple visualisation for continuous data
 
